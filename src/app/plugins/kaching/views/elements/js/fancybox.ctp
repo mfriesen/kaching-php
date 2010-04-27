@@ -1,0 +1,2 @@
+<?php echo $html->css('/kaching/fancybox/jquery.fancybox-1.3.0.css', 'stylesheet', array('media'=>'screen'), false) ?>
+<script type="text/javascript" src="/kaching/fancybox/jquery.fancybox-1.3.0.pack.js"></script>

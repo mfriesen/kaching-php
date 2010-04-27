@@ -1,0 +1,39 @@
+﻿body, input, textarea, button {
+color:#333333;
+font-family:"Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+ul.side-box {
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+}
+
+a.side-box {color:#333333;}
+a.side-box:link {text-decoration: none; }
+a.side-box:visited {text-decoration: none; }
+a.side-box:active {text-decoration: none; }
+a.side-box:hover {background-color:#D6E5F2;color:#0085CF;text-decoration:none; }
+	
+.wbox {
+margin-top:20px;
+-moz-border-radius-topleft:20px;
+-moz-border-radius-topright:20px;
+background:#ffffff none repeat scroll 0 0;
+border:1px solid #DDDDDD;
+}
+
+span.block { display:block; }
+.productbox {
+border-color:#DBDBDB #9A9A9A #9A9A9A #DBDBDB;
+border-style:solid;
+border-width:1px;
+display:inline;
+float:left;
+height:220px;
+margin:3px;
+overflow:hidden;
+padding:5px;
+position:relative;
+width:205px;
+text-align: center;
+}

@@ -1,0 +1,1 @@
+<?php $javascript->codeBlock("google.load('prototype', '1.6.0.3');", array('inline'=>false, 'safe'=>false))?>

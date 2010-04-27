@@ -1,0 +1,1 @@
+<tr><td colspan='2'><br/>Your Shopping Cart is Empty<br /><br /></td></tr>

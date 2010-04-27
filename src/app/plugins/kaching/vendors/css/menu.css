@@ -1,0 +1,150 @@
+ul.menutabs
+{
+	display: table;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: relative;
+}
+
+ul.menutabs li
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: table-cell;
+	float: left;
+	position: relative;
+}
+
+ul.menutabs a
+{
+	position: relative;
+	display: block;
+}
+
+ul.dropdown
+{
+	margin: 0;
+	padding: 0;
+	display: block;
+	position: absolute;
+	z-index: 999;
+	top: 100%;
+	width: 250px;
+	display: none;
+	left: 0;
+}
+
+ul.dropdown ul.dropdown
+{
+	top: 0;
+	left: 95%;
+}
+
+ul.dropdown li
+{
+	margin: 0;
+	padding: 0;
+	float: none;
+	position: relative;
+	list-style: none;
+	display: block;
+}
+
+ul.dropdown li a
+{
+	display: block;
+}
+
+#menu
+{
+	z-index: 5;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background: #b7ce78 url(/kaching/img/admin/menu-bg.png) repeat-x;
+	border-bottom: 1px solid #000;
+}
+
+#menu ul
+{
+}
+
+#menu ul li.hasmore
+{
+}
+
+#menu ul li h4
+{
+	margin: 0;
+}
+
+#menu ul li h4 a
+{
+	font-size: 14px;
+	color: #000;
+	font-weight: bold;
+	padding: 0 15px;
+}
+
+#menu ul li a
+{
+	color: #000000;
+	padding-left: 4px;
+}
+
+#menu ul li a img
+{
+	vertical-align: middle;
+}
+
+#menu ul li a:hover
+{
+	background: url(/kaching/img/admin/selection-left.png) top left no-repeat;
+}
+
+#menu ul li a span
+{
+	display: block;
+	padding: 0 15px 0 11px;
+}
+
+#menu ul li a:hover span
+{
+	background: url(/kaching/img/admin/selection-right.png) top right;
+}
+
+#menu ul.dropdown
+{
+	padding: 10px;
+	background-image: url(/kaching/img/admin/dropdown.png);
+	overflow:hidden;
+	border-bottom: 1px solid #86ae19;
+	width: 290px;
+}
+
+#menu ul.dropdown li a
+{
+	border-bottom: 1px solid #86ae19;
+	line-height: 30px;
+	overflow: hidden;
+	height: 30px;
+}
+
+#menu ul.dropdown li.last a
+{
+	border-bottom-width: 0;
+}
+
+#menu ul.dropdown li a:hover
+{
+	background: url(/kaching/img/admin/hand-right-arrow.png) no-repeat left center;
+}
+
+#menu ul li h4 a:hover
+{
+	background-image: none;
+}

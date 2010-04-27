@@ -1,0 +1,22 @@
+#logo {
+display:none;
+}
+#banner {
+display:none;
+}
+.menu-item {
+display:none;
+}
+span {
+font-size:140%;
+}
+label {
+font-size:110%;
+}
+.column {
+text-align:left;
+}
+
+form.inline {
+line-height:2;
+}

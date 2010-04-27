@@ -1,0 +1,185 @@
+body {font-size:83%;}
+strike {color:red;}
+.span-1-border-1 {width:28px;}
+.span-2-border-1 {width:68px;}
+.span-3-border-1 {width:108px;}
+.span-4-border-1 {width:148px;}
+.span-5-border-1 {width:188px;}
+.span-6-border-1 {width:228px;}
+.span-7-border-1 {width:268px;}
+.span-8-border-1 {width:308px;}
+.span-9-border-1 {width:348px;}
+.span-10-border-1 {width:388px;}
+.span-11-border-1 {width:428px;}
+.span-12-border-1 {width:468px;}
+.span-13-border-1 {width:508px;}
+.span-14-border-1 {width:548px;}
+.span-15-border-1 {width:588px;}
+.span-16-border-1 {width:628px;}
+.span-17-border-1 {width:668px;}
+.span-18-border-1 {width:708px;}
+.span-19-border-1 {width:748px;}
+.span-20-border-1 {width:788px;}
+.span-21-border-1 {width:828px;}
+.span-22-border-1 {width:868px;}
+.span-23-border-1 {width:908px;}
+.span-24-border-1 {width:948px;}
+.span-1-padding10 {width:8px;}
+.span-2-padding10 {width:48px;}
+.span-3-padding10 {width:88px;}
+.span-4-padding10 {width:128px;}
+.span-5-padding10 {width:168px;}
+.span-6-padding10 {width:208px;}
+.span-7-padding10 {width:248px;}
+.span-8-padding10 {width:288px;}
+.span-9-padding10 {width:328px;}
+.span-10-padding10 {width:368px;}
+.span-11-padding10 {width:408px;}
+.span-12-padding10 {width:448px;}
+.span-13-padding10 {width:488px;}
+.span-14-padding10 {width:528px;}
+.span-15-padding10 {width:568px;}
+.span-16-padding10 {width:608px;}
+.span-17-padding10 {width:648px;}
+.span-18-padding10 {width:688px;}
+.span-19-padding10 {width:728px;}
+.span-20-padding10 {width:768px;}
+.span-21-padding10 {width:808px;}
+.span-22-padding10 {width:848px;}
+.span-23-padding10 {width:888px;}
+.span-24-padding10 {width:928px;}
+form.inline { line-height:2.5; }
+.left { text-align:left }
+.center { text-align:center }
+.right { text-align:right }
+.top { vertical-align:top; }
+.error-message { color:red;display:inline; }
+.margin0 { margin:0; }
+.padding0 { padding:0; }
+.padding10 { padding:10px 10px; }
+.menu-background { height:42px; background-repeat:repeat-x; }
+.menu-item {
+color:#fff;
+font-family:georgia,garamond,serif;
+font-weight:700;
+font-size:16px;
+line-height:35px;
+padding-left:19px
+}
+a.menu-item:hover { text-decoration:underline; color:#FFF4C8 }
+a.menu-item:link,a.menu-item:visited,a.menu-item:active { text-decoration:none }
+table { margin-bottom:0 }
+table.simple { width:100%; border-collapse:collapse; padding:10px }
+table.simple caption { background:#fff; border-bottom:1px solid #000; }
+table.simple th {
+border:1px solid #000;
+background-color:#d4e2af;
+line-height:1.0;
+font-weight:400;
+font-size:110%;
+padding:5px
+}
+table.simple td {
+vertical-align:middle;
+border:1px solid #000;
+line-height:1.0;
+padding:5px
+}
+textarea {width:auto;height:auto;padding:0px;}
+.ui-datepicker { z-index: 100999; }
+label {font-weight:normal;}
+
+.button-actions { margin:0px auto; padding:0;}
+.button-actions span { display: none; }
+.button-actions li, .button-actions a { height:30px; display:block; }
+.button-actions li { float:left; list-style:none; display:inline; margin-left: 0px; }
+
+.button-actions-paypalpayment { background:url("/kaching/images/button-paypal-payment.png") no-repeat; width: 90px; height: 30px; }
+.button-action-paypalpayment {width: 99px;}
+.button-action-paypalpayment a:hover {background:url("/kaching/images/button-paypal-payment.png") 00px -30px no-repeat; }
+
+.button-actions-paypalrefund { background:url("/kaching/images/button-paypal-refund.png") no-repeat; width: 90px; height: 30px; }
+.button-action-paypalrefund {width: 99px;}
+.button-action-paypalrefund a:hover {background:url("/kaching/images/button-paypal-refund.png") 00px -30px no-repeat; }
+
+.button-actions-complete { background:url("/kaching/images/button-complete.png") no-repeat; width: 90px; height: 30px; }
+.button-action-complete {width: 99px;}
+.button-action-complete a:hover {background:url("/kaching/images/button-complete.png") 00px -30px no-repeat; }
+
+.button-actions-cancel { background:url("/kaching/images/button-cancel.png") no-repeat; width: 90px; height: 30px; }
+.button-action-cancel {width: 99px;}
+.button-action-cancel a:hover {background:url("/kaching/images/button-cancel.png") 00px -30px no-repeat; }
+
+.button-actions-checkout { background:url("/kaching/images/button-checkout.png") no-repeat; width: 90px; height: 30px; }
+.button-action-checkout {width: 99px;}
+.button-action-checkout a:hover {background:url("/kaching/images/button-checkout.png") 00px -30px no-repeat; }
+
+/* root element for tabs  */
+ul.tabs {  
+	margin:0 !important; 
+	padding:0;
+	height:30px;
+	border-bottom:1px solid #666;	 	
+}
+
+/* single tab */
+ul.tabs li {  
+	float:left;	 
+	padding:0; 
+	margin:0;  
+	list-style-type:none;	
+}
+
+/* link inside the tab. uses a background image */
+ul.tabs a { 
+	float:left;
+	font-size:13px;
+	display:block;
+	padding:5px 30px;	
+	text-decoration:none;
+	border:1px solid #666;	
+	border-bottom:0px;
+	height:18px;
+	background-color:#e1edf4;
+	color:#777;
+	margin-right:2px;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-topright:4px;
+	position:relative;
+	top:1px;	
+}
+
+ul.tabs a:hover {
+	background-color:#F7F7F7;
+	color:#333;
+}
+	
+/* selected tab */
+ul.tabs a.current {
+	background-color:#8ca5b5;
+	border-bottom:1px solid #8ca5b5;	
+	color:#000;	
+}
+
+	
+/* tab pane */
+div.panes div {
+	display:none;
+	border:1px solid #666;
+	border-width:0 1px 1px 1px;
+	min-height:150px;
+	padding:15px 20px;
+	background-color:#fff;	
+}
+
+div.tab-pane {border:1px solid #666;}
+
+div.banner {
+height: 65px;
+background:#FFFFFF url(/kaching/images/admin/logo-bg.png) repeat-x scroll 0 0;
+margin-right:0px;
+padding-right:5px;
+}
+.white {color: #ffffff;}
+#tooltip{position:absolute;	border:1px solid #333;background:#f7f5d1;padding:2px 5px;color:#333;display:none;}
+#preview{position:absolute;	border:1px solid #ccc;background:#333;padding:5px;display:none;color:#fff;}
