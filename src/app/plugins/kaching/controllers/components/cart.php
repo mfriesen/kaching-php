@@ -234,6 +234,8 @@ class CartComponent extends Object {
 	
 	function set_coupon($cart, $code) {
 
+		$coupon = null;
+		$coupon_code = "";
 		$store_id = $cart['Order']['store_id'];
 		$active = $this->controller->Coupon->isActive($store_id, $code);
 		
@@ -250,16 +252,18 @@ class CartComponent extends Object {
 				
 				$this->controller->Order->invalidate("coupon_code", "* Coupon minimum order amount is $$min_amount");	
 			} else { // coupon is okay
-				
-				$cart['Order']['coupon_code'] = $code;				
-				$store = $this->Store->findById($store_id);
-				$cart = $this->recalculate($cart, $store, $coupon);
+
+				$coupon_code = $code;
 			}
 			
 		} else {
 			$this->controller->Order->invalidate("coupon_code", "* Invalid Coupon Code");
 		}
 		
+		$cart['Order']['coupon_code'] = $coupon_code;
+		$store = $this->controller->Store->findById($store_id);
+		$cart = $this->recalculate($cart, $store, $coupon);
+				
 		return $cart;
 	}
 	

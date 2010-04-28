@@ -55,7 +55,7 @@ class ProductsearchesController extends AdminController {
 	        $this->data['Productsearch']['sort'] = $sort;
 	        $this->data['Productsearch']['direction'] = $direction;
 	        
-	        $qq = "$q%";
+	        $qq = "%$q%";
 			$conditions = array("or"=>array("number like"=>$qq, "title like"=>$qq));
         	$this->data = $this->paginate('Product', $conditions);
 

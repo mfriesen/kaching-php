@@ -389,14 +389,14 @@ class CartsController extends KachingAppController {
 	function set_coupon() {
 		
 		$coupon_code = isset($this->data['Order']['coupon_code']) ? strtoupper($this->data['Order']['coupon_code']) : "";
-		$coupon_code = isset($this->passedArgs['coupon_code']) ? $this->passedArgs['coupon_code'] : $couponCode;
+		$coupon_code = isset($this->passedArgs['coupon_code']) ? $this->passedArgs['coupon_code'] : $coupon_code;
 		$store_number = isset($this->passedArgs['store']) ? $this->passedArgs['store'] : 1;
 
 		$store = $this->Store->findByNumber($store_number);
 		$cart = $this->Cart->get($store);
 		
-		$cart = $this->cart->set_coupon($cart, $coupon_code);
-		$this->cart->save($cart, $store_number);
+		$cart = $this->Cart->set_coupon($cart, $coupon_code);
+		$this->Cart->save($cart, $store_number);
 
 		$errors = $this->Order->invalidFields();
 		
