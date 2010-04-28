@@ -94,25 +94,25 @@ label {font-weight:normal;}
 .button-actions li, .button-actions a { height:30px; display:block; }
 .button-actions li { float:left; list-style:none; display:inline; margin-left: 0px; }
 
-.button-actions-paypalpayment { background:url("/kaching/images/button-paypal-payment.png") no-repeat; width: 90px; height: 30px; }
+.button-actions-paypalpayment { background:url("/kaching/img/button-paypal-payment.png") no-repeat; width: 90px; height: 30px; }
 .button-action-paypalpayment {width: 99px;}
-.button-action-paypalpayment a:hover {background:url("/kaching/images/button-paypal-payment.png") 00px -30px no-repeat; }
+.button-action-paypalpayment a:hover {background:url("/kaching/img/button-paypal-payment.png") 00px -30px no-repeat; }
 
-.button-actions-paypalrefund { background:url("/kaching/images/button-paypal-refund.png") no-repeat; width: 90px; height: 30px; }
+.button-actions-paypalrefund { background:url("/kaching/img/button-paypal-refund.png") no-repeat; width: 90px; height: 30px; }
 .button-action-paypalrefund {width: 99px;}
-.button-action-paypalrefund a:hover {background:url("/kaching/images/button-paypal-refund.png") 00px -30px no-repeat; }
+.button-action-paypalrefund a:hover {background:url("/kaching/img/button-paypal-refund.png") 00px -30px no-repeat; }
 
-.button-actions-complete { background:url("/kaching/images/button-complete.png") no-repeat; width: 90px; height: 30px; }
+.button-actions-complete { background:url("/kaching/img/button-complete.png") no-repeat; width: 90px; height: 30px; }
 .button-action-complete {width: 99px;}
-.button-action-complete a:hover {background:url("/kaching/images/button-complete.png") 00px -30px no-repeat; }
+.button-action-complete a:hover {background:url("/kaching/img/button-complete.png") 00px -30px no-repeat; }
 
-.button-actions-cancel { background:url("/kaching/images/button-cancel.png") no-repeat; width: 90px; height: 30px; }
+.button-actions-cancel { background:url("/kaching/img/button-cancel.png") no-repeat; width: 90px; height: 30px; }
 .button-action-cancel {width: 99px;}
-.button-action-cancel a:hover {background:url("/kaching/images/button-cancel.png") 00px -30px no-repeat; }
+.button-action-cancel a:hover {background:url("/kaching/img/button-cancel.png") 00px -30px no-repeat; }
 
-.button-actions-checkout { background:url("/kaching/images/button-checkout.png") no-repeat; width: 90px; height: 30px; }
+.button-actions-checkout { background:url("/kaching/img/button-checkout.png") no-repeat; width: 90px; height: 30px; }
 .button-action-checkout {width: 99px;}
-.button-action-checkout a:hover {background:url("/kaching/images/button-checkout.png") 00px -30px no-repeat; }
+.button-action-checkout a:hover {background:url("/kaching/img/button-checkout.png") 00px -30px no-repeat; }
 
 /* root element for tabs  */
 ul.tabs {  
@@ -176,7 +176,7 @@ div.tab-pane {border:1px solid #666;}
 
 div.banner {
 height: 65px;
-background:#FFFFFF url(/kaching/images/admin/logo-bg.png) repeat-x scroll 0 0;
+background:#FFFFFF url(/kaching/img/admin/logo-bg.png) repeat-x scroll 0 0;
 margin-right:0px;
 padding-right:5px;
 }
