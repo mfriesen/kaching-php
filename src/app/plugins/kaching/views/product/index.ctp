@@ -17,7 +17,6 @@
 	
 	<div class="clear">&nbsp;</div>
 	
-	<?php $products = isset($products) ? $products : null; ?>
 	<?php echo $this->element('product/search-results')?>
 	
 </div>

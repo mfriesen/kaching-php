@@ -35,17 +35,12 @@ class OrdersearchesController extends AdminController
     	
         if (!empty($this->data)) {
         	$start = strlen($this->data['Ordersearch']['startdate']) > 0 ? $this->data['Ordersearch']['startdate'] : "";
-        	$end = strlen($this->data['Ordersearch']['enddate']) > 0 ? $this->data['Ordersearch']['enddate'] : "";
         }
 
         if (isset($start) && strlen($start) > 0) {
         	
         	$conditions = array('Order.inserted_date >= ?' => array($start));
-    	
-	    	if (strlen($end) > 0) {
-	            $conditions = array('Order.inserted_date BETWEEN ? AND ?' => array($start, $end));
-	    	}
-        
+    	        
 	        $this->Ordersearch->set($this->data);
 	        if ($this->Ordersearch->validates()) {
 				$orders = $this->paginate('Order', $conditions);

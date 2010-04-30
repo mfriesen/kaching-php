@@ -50,15 +50,15 @@ class ProductsearchesController extends AdminController {
 			$q = isset($this->passedArgs['q']) ? $this->passedArgs['q'] : "";
 			$sort = isset($this->passedArgs['sort']) ? $this->passedArgs['sort'] : "title";
 			$direction = isset($this->passedArgs['direction']) ? $this->passedArgs['direction'] : "asc";
-	
-	        $this->data['Productsearch']['q'] = $q;
-	        $this->data['Productsearch']['sort'] = $sort;
-	        $this->data['Productsearch']['direction'] = $direction;
-	        
+		        
 	        $qq = "%$q%";
 			$conditions = array("or"=>array("number like"=>$qq, "title like"=>$qq));
-        	$this->data = $this->paginate('Product', $conditions);
+        	$this->data['products'] = $this->paginate('Product', $conditions);
 
+        	$this->data['Productsearch']['q'] = $q;
+	        $this->data['Productsearch']['sort'] = $sort;
+	        $this->data['Productsearch']['direction'] = $direction;
+        	
         	$this->set('stores', $this->Store->find('list'));
 		}
     }	

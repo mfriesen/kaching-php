@@ -32,7 +32,8 @@ function showRetail($label, $retail, $discount) {
 	
 	<tbody id='productTableBody' align='center'>
 
-	<?php foreach($this->data as $product): ?>
+	<?php $products = isset($this->data['products']) ? $this->data['products'] : array(); ?>
+	<?php foreach($products as $product): ?>
 	
 		<?php list($id, $number, $title, $description, $keywords, $thumbnail, $image, $page, $inserted, $modified) = $cart->getProduct($product); ?>
 		<?php $thumbUrl = is_file("$thumbnailDir/$thumbnail") ? "$thumbnailUrl/$thumbnail" : "/kaching/img/no-image.jpg"; ?>
