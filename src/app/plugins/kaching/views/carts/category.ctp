@@ -4,7 +4,7 @@
 
 <br />
 <p>Welcome to the Kaching Sample Store.  This store provide you with sample code of all the features of Kaching.</p>
-<p>Please see our <a href="http://code.google.com/p/kaching-php">Project Page</a> for documentation on the installation and usage of Kaching.</p>
+<p>Please see our <a href="http://github.com/mfriesen/kaching-php">Project Page</a> for documentation on the installation and usage of Kaching.</p>
 
 <h2><i>Category:</i>&nbsp;<?php echo $categoryName?> </h2>
 

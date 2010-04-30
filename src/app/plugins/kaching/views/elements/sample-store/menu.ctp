@@ -2,7 +2,7 @@
 	<div class="span-20">
 		<ul class="menutabs">
 			<li><a href="/"><span>Demo Store</span></a></li>
-			<li><a href="http://code.google.com/p/kaching-php"><span>Project Page</span></a></li>
+			<li><a href="http://github.com/mfriesen/kaching-php"><span>Project Page</span></a></li>
 		</ul>
 	</div>
 	<div class="span-4 txt-center last">
