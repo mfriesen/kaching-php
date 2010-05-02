@@ -26,16 +26,13 @@
 
 	<?php echo $this->element("sample-store/menu")?>
 		
-	<div class="tab-pane padding10">
 
-		<?php echo $this->element("sample-store/left-menu")?>
-		
-		<div class="span-18 span-18-padding10 last">
-			<?php echo $content_for_layout ?>
-		</div>
-		<div class="clear"></div>
-
+	<?php echo $this->element("sample-store/left-menu")?>
+	
+	<div class="span-18 last">
+		<?php echo $content_for_layout ?>
 	</div>
+	<div class="clear"></div>
 
 </div>
 

@@ -1,37 +1,24 @@
-<?php $thumbnailDir = Configure::read("kaching.product-thumbnail.dir"); ?>
-<?php $thumbnailUrl = Configure::read('kaching.product-thumbnail.url'); ?>
+<?php list($id, $number, $title, $description, $keywords, $thumbnail, $image, $page) = $cart->product($product) ?>
+<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->product_store($product) ?>
 
-<?php list($id, $number, $title, $description, $keywords, $thumbnail, $image, $page) = $cart->getProduct($product); ?>
-<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->getProductStore($product); ?>
+<?php $title = h($title) ?>
+<?php $link = $cart->product_page($product) ?>
 
-<?php $title = h($title); ?>
-<?php $link = strlen($page) > 0 ?	$link = "/product/$page" : "/kaching/carts/product/id:$id"; ?>
+<?php $thumbnailpath = $cart->thumbnail_url($product) ?>
 
-<?php $thumbnailpath = is_file("$thumbnailDir/$thumbnail") ? "$thumbnailUrl/$thumbnail" : "/kaching/img/no-image.jpg"?>
+<?php list($min, $max) = $cart->retail_range($product)?>
 
-<?php 
-$a = array($retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3);
+<?php $isLast = ($index % $columns == $columns -1) ?>
 
-foreach ($a as $index => $v):
-	if ($v == 0)
-		unset($a[$index]);
-endforeach;
-
-$min = min($a);
-$max = max($a);
-?>
+<div class="span-6 txt-center product-box <?php if ($isLast) { echo "last"; } ?>" style='<?php if (!$isLast) { echo "margin-right:1px;"; } ?>'>
 	
-<div class='productbox'>
+	<h3><strong><a href='<?php echo $link?>'><?php echo $title?></a></strong></h3>
 
-	<h4><strong><a href='<?php echo $link?>'><?php echo $title?></a></strong></h4><br/>
-	
-	<a id='link_<?php echo $id?>' href='<?php echo $link?>'>
-		<span class="block">
-			<img title='click for details' alt='<?php echo "$title"?>' border='0' src='<?php echo $thumbnailpath?>' />
-		</span>
-	</a>
-					
-	<span class="block">
+	<div class="product-image">
+			<img title='click for details' alt='<?php echo "$title"?>' src='<?php echo $thumbnailpath?>' />
+	</div>
+
+	<p>
 					
 		<?php if ($discountLevel1 > 0) { ?>
 				
@@ -42,14 +29,11 @@ $max = max($a);
 				
 			<br />Our Price:&nbsp;$<?php if ($min != $max) { echo "$min - $max"; } else { echo $retailLevel1; }?>
 							
-		<?php } ?>	
-				
-		<?php if ($qty > 0) { ?>
-			<br/>Quantity Remaining:&nbsp;<?php echo $qty?>
-		<?php } else {?>
-			<br/>&nbsp;
-		<?php } ?>
-	</span>
-	
+		<?php } ?>			
+	</p>
+
+	<?php if ($qty > 0) { ?>
+		<p>Quantity Remaining:&nbsp;<?php echo $qty?></p>
+	<?php } ?>
 	<a id='addToCart_<?php echo $id?>' href='/kaching/carts/add/id:<?php echo $id?>'><img src='/kaching/img/cart_add.png' /></a>
 </div>

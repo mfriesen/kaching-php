@@ -1,7 +1,20 @@
 <?php
 class CartHelper extends AppHelper
 {	
+	/**
+	 * Call product_store instead
+	 * @deprecated
+	 * @param $product
+	 */
 	function getProductStore($product) {
+		return $this->product_store($product);
+	}
+	
+	/**
+	 * Returns product store variables as a list
+	 * @param $product
+	 */
+	function product_store($product) {
 
 		$p = $this->__getProductStore($product);
 
@@ -24,8 +37,20 @@ class CartHelper extends AppHelper
 			);
 	}
 	
+	/**
+	 * call product($product) instead
+	 * @deprecated
+	 * @param $product
+	 */
 	function getProduct($product) {
-		
+		return $this->product($product);
+	}
+	
+	/**
+	 * Returns product variables as a list 
+	 * @param $product
+	 */
+	function product($product) {		
 		$p = $this->__getProduct($product);
 		
 		return array(
@@ -79,6 +104,41 @@ class CartHelper extends AppHelper
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Returns the URL to the product's page
+	 * @param $product
+	 */
+	function product_page($product) {
+		list($id, $number, $title, $description, $keywords, $thumbnail, $image, $page) = $this->getProduct($product);
+		return strlen($page) > 0 ?	"/product/$page" : "/kaching/carts/product/id:$id";
+	}
+	
+	/**
+	 * Returns thumbnail url
+	 * @param $product
+	 */
+	function thumbnail_url($product) {
+		$thumbnailDir = Configure::read("kaching.product-thumbnail.dir");
+		$thumbnailUrl = Configure::read('kaching.product-thumbnail.url');		
+		list($id, $number, $title, $description, $keywords, $thumbnail, $image, $page) = $this->getProduct($product);
+		return is_file("$thumbnailDir/$thumbnail") ? "$thumbnailUrl/$thumbnail" : "/kaching/img/no-image.jpg";
+	}
+
+	/**
+	 * Returns the min / max range of the retail levels
+	 */
+	function retail_range($product) {
+		list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $this->product_store($product);
+		$a = array($retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3);
+		
+		foreach ($a as $i => $v):
+			if ($v == 0)
+				unset($a[$i]);
+		endforeach;
+
+		return array(min($a), max($a));
 	}
 }
 ?>

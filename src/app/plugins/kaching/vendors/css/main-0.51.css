@@ -1,4 +1,8 @@
-body {font-size:83%;}
+body {
+font-family:'Lucida Grande','Lucida Sans Unicode',Tahoma,Arial,san-serif;
+background:#FFFFFF url(/kaching/img/bg.jpg) scroll 0 0;
+font-size:12px;
+}
 strike {color:red;}
 .span-1-border-1 {width:28px;}
 .span-2-border-1 {width:68px;}

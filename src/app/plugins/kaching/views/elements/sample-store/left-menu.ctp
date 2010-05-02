@@ -2,7 +2,7 @@
 
 	<form id="CartSearchForm" class="inline" action="/kaching/carts/search" method="post">
 		<?php $v = isset($q) ? $q : ""?>
-		<div class="span-4"><?php echo $form->text("Cart.q", array("size"=>"19", "maxlength"=>"20", "value"=>$v)) ?></div>
+		<div class="span-4"><?php echo $form->text("Cart.q", array("size"=>"17", "maxlength"=>"17", "value"=>$v)) ?></div>
 		<div class="span-1"><input name='search' type='image' src='/kaching/img/sample-store/magnify_glass.png' style='width: 35px;' /></div>
 		<br />				
 	</form>
