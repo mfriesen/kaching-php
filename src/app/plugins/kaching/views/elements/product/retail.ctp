@@ -26,7 +26,7 @@ function showRetail($retail, $discount) {
 
 <?php foreach($this->data['ProductStore'] as $index => $ps): ?>
 	
-	<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->getProductStore($ps); ?>
+	<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->product_store($ps); ?>
 			
 	<table id='productretail' class="simple" summary="product retail">
 		<caption><strong><?php echo $ps['Store']['name'] ?></strong></caption>

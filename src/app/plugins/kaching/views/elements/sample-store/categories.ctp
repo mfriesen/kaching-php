@@ -2,7 +2,7 @@
 <?php $category_id = isset($category) ? $category['Category']['id'] : null; ?>
 <?php $categories = $parent_id != null ? 
 	$this->requestAction("/kaching/carts/get_categories/parent:$category_id") : $this->requestAction("/kaching/carts/get_categories"); ?>
-	
+
 <ul class="side-box">
 	<li><h4><strong><a href='/'>Categories</a></strong></h4></li>
 	
@@ -13,7 +13,7 @@
 	<?php foreach($categories as $category): ?>
 	
 		<?php $id = $category['Category']['id']; ?>
-		<?php $page = strlen($category['Category']['page']) > 0 ? "/category/" . $category['Category']['page'] : "/kaching/carts/category/$id"; ?>
+		<?php $page = $cart->category_page($category); ?>
 		<?php $name = h($category['Category']['name'])?>
 		
 		<li>

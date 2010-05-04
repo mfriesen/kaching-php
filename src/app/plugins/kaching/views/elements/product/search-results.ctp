@@ -40,7 +40,7 @@ function showRetail($label, $retail, $discount) {
 		
 		<?php foreach($product['ProductStore'] as $productStore): ?>
 
-			<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->getProductStore($productStore); ?>
+			<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->product_store($productStore); ?>
 		
 			<tr>
 				<td><?php echo $stores[$storeid]?></td>

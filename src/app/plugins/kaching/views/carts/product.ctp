@@ -2,7 +2,7 @@
 <?php $imageDir = Configure::read('kaching.product-image.dir'); ?>
 
 <?php list($id, $number, $title, $description, $keywords, $thumbnail, $image, $page) = $cart->getProduct($product); ?>
-<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->getProductStore($product); ?>
+<?php list($psid, $productid, $storeid, $active, $qty, $vpricing, $tax1, $tax2, $shipping, $retailLevel1, $retailLevel2, $retailLevel3, $discountLevel1, $discountLevel2, $discountLevel3) = $cart->product_store($product); ?>
 
 <?php $active = $cart->isProductActive($product) ?>
 

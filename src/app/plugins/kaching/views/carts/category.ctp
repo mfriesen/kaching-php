@@ -1,4 +1,3 @@
-<?php $columns = 3;?>
 <?php $categoryId = $category['Category']['id'] > -1 ? $category['Category']['id'] : "null"; ?>
 <?php $categoryName =  h($category['Category']['name'])?>
 <?php $priceFilter = array('0-40' => 'less $40', '40-55' => '$40 - $55', '55-75' => '$55 - $75', '75-100' => '$75 - $100', '100-'=>'more $100'); ?>
@@ -7,7 +6,10 @@
 <p>Welcome to the Kaching Sample Store.  This store provide you with sample code of all the features of Kaching.</p>
 <p>Please see our <a href="http://github.com/mfriesen/kaching-php">Project Page</a> for documentation on the installation and usage of Kaching.</p>
 
-<h2><i>Category:</i>&nbsp;<?php echo $categoryName?> </h2>
+<div class="span-15"><h2><i>Category:</i>&nbsp;<?php echo $categoryName?> </h2></div>
+
+<?php echo $this->element("sample-store/cart-summary")?>
+<div class="clear"></div>
 
 Price Range:
 &nbsp;&nbsp;
@@ -24,23 +26,7 @@ Price Range:
 <?php } else if (sizeof($products) == 0) { ?>
 	<div class="txt-center"><h3>No Products Found matching search criteria</h3></div>
 <?php } else { ?>
-	
-	<div class='span-18' style='background-color:#DDDDDD;'>
-	<?php
-	$plist = array_chunk($products, $columns);
-	foreach ($plist as $pindex => $pproducts):
-		?>
-		<hr style='margin-bottom:0;'/>
-		<?php
-		foreach ($pproducts as $index => $product):
-			echo $this->element("cart/product-box", array("product"=>$product, "index"=>$index, "columns"=>$columns));
-		endforeach;
-		?>
-		<?php
-	endforeach;	
-	?>
-	</div>
-	<div class="clear"><hr/></div>
-	<?php if ($limit > 0) { echo $this->element('paginator-links'); }?>
+
+	<?php echo $this->element("cart/products-box")?>
 		
 <?php } ?>

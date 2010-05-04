@@ -11,12 +11,24 @@ class CartHelper extends AppHelper
 	}
 	
 	/**
+	 * Returns the number of items in the cart
+	 */
+	function cart_item_count($cart) {
+		return isset($cart['OrderDetail']) ? count($cart['OrderDetail']) : 0;
+	}
+	
+	function total($cart) {
+		$total = isset($cart['Order']['total']) ? $cart['Order']['total'] : 0;
+		return number_format($total, 2);
+	}
+	
+	/**
 	 * Returns product store variables as a list
 	 * @param $product
 	 */
 	function product_store($product) {
 
-		$p = $this->__getProductStore($product);
+		$p = $this->__get_product_store($product);
 
 		return array(
 			$p['id'],
@@ -51,7 +63,7 @@ class CartHelper extends AppHelper
 	 * @param $product
 	 */
 	function product($product) {		
-		$p = $this->__getProduct($product);
+		$p = $this->__get_product($product);
 		
 		return array(
 					$p['id'], 
@@ -66,7 +78,7 @@ class CartHelper extends AppHelper
 					$p['modified_date']);
 	}
 	
-	function __getProduct($product) {
+	function __get_product($product) {
 		
 		if (isset($product['Product'])) { 
 			$product = $product['Product'];
@@ -76,7 +88,7 @@ class CartHelper extends AppHelper
 		return $product;
 	}
 	
-	function __getProductStore($product) {
+	function __get_product_store($product) {
 		
 		if (isset($product['ProductStore'])) { 
 			$product = $product['ProductStore'];
@@ -139,6 +151,14 @@ class CartHelper extends AppHelper
 		endforeach;
 
 		return array(min($a), max($a));
+	}
+
+	/**
+	 * Returns either URL friendly category page or the CakePHP version of it
+	 * @param $category
+	 */
+	function category_page($category) {
+		return strlen($category['Category']['page']) > 0 ? "/category/" . $category['Category']['page'] : "/kaching/carts/category/" . $category['Category']['id'];
 	}
 }
 ?>
