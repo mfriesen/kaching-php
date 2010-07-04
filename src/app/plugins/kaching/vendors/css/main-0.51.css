@@ -1,6 +1,6 @@
 body {
 font-family:'Lucida Grande','Lucida Sans Unicode',Tahoma,Arial,san-serif;
-background:#FFFFFF url(/kaching/img/bg.jpg) scroll 0 0;
+background:#FFFFFF url(/kaching/img/bg.jpg) repeat-x scroll 0 0;
 font-size:12px;
 }
 strike {color:red;}
