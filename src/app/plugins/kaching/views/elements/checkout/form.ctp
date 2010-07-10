@@ -50,7 +50,7 @@ if (!empty($countries)) {
 
 <div class="span-4 txt-right"><label class='txt-right' for="province">Province/State:</label></div>
 <div class="span-13 last">
-	<?php echo $form->select("Order.billto_region", $regions, null, array("id"=>"billto_regions"), false) ?>
+	<?php echo $form->select("Order.billto_region", $regions, null, array("id"=>"billto_regions", "empty"=>false)) ?>
 	<?php echo $form->error("Order.billto_region") ?>
 </div>
 <div class="clear"></div>
@@ -64,7 +64,7 @@ if (!empty($countries)) {
 
 <div class="span-4 txt-right"><label class='txt-right' for="country">Country:</label></div>
 <div class="span-13 last">
-	<?php echo $form->select("Order.billto_country", $countries, null, array("id"=>"billto_countries"), false) ?>
+	<?php echo $form->select("Order.billto_country", $countries, null, array("id"=>"billto_countries", "empty"=>false)) ?>
 	<?php echo $form->error("Order.billto_country") ?>
 </div>
 <div class="clear">&nbsp;</div>
@@ -94,7 +94,7 @@ if (!empty($countries)) {
 
 <div class="span-4 txt-right"><label class='txt-right' for="province">Province / State:</label></div>
 <div class="span-13 last">
-	<?php echo $form->select("Order.shipto_region", $regions, null, array("id"=>"shipto_regions"), false) ?>
+	<?php echo $form->select("Order.shipto_region", $regions, null, array("id"=>"shipto_regions", "empty"=>false)) ?>
 	<?php echo $form->error("Order.shipto_region") ?>
 </div>
 <div class="clear"></div>
@@ -108,7 +108,7 @@ if (!empty($countries)) {
 
 <div class="span-4 txt-right"><label class='txt-right' for="country">Country:</label></div>
 <div class="span-13 last">
-	<?php echo $form->select("Order.shipto_country", $countries, null, array("id"=>"shipto_countries"), false) ?>
+	<?php echo $form->select("Order.shipto_country", $countries, null, array("id"=>"shipto_countries", "empty"=>false)) ?>
 	<?php echo $form->error("Order.shipto_country") ?>	
 </div>
 <div class="clear">&nbsp;</div>
@@ -118,7 +118,7 @@ if (!empty($countries)) {
 <?php $paymentType = isset($this->data['Order']['credit_card']) ? $this->data['Order']['credit_card'] : "" ;?>
 <div class="span-4 txt-right"><label class='txt-right' for="creditcard">Credit Card Type:</label></div>
 <div class="span-13 last">
-	<?php echo $form->select("Order.credit_card", $paymentTypes, $paymentType, array(), true) ?>
+	<?php echo $form->select("Order.credit_card", $paymentTypes, $paymentType, array("empty"=>false)) ?>
 	<?php echo $form->error("Order.credit_card") ?>
 </div>	
 <div class="clear"></div>

@@ -105,7 +105,7 @@
 	<?php $activeList = array ('0'=>'Inactive', '1'=>'Active'); ?>
 	<div class="span-3 txt-right"><label for="active">Active:</label></div>
 	<div class="span-9 span-9-border-1 last">
-		<?php echo $form->select("ProductStore.active", $activeList, null, array(), false) ?>
+		<?php echo $form->select("ProductStore.active", $activeList, null, array("empty"=>false)) ?>
 		<?php echo $form->error("ProductStore.active") ?>
 	</div>	
 	<div class="clear"></div>
@@ -113,7 +113,7 @@
 	<?php $variablePricing = array ('0'=>'No', '1'=>'Yes'); ?>
 	<div class="span-3 txt-right"><label for="variable_pricing">Variable Pricing:</label></div>
 	<div class="span-9 span-9-border-1 last">
-		<?php echo $form->select("ProductStore.variable_pricing", $variablePricing, null, array(), false) ?>
+		<?php echo $form->select("ProductStore.variable_pricing", $variablePricing, null, array("empty"=>false)) ?>
 		<a class="tooltip" title="Allow product to have a range of pricing, between retail and discount amounts"><img width='20' height='20' src='/kaching/img/info.png' alt='variable pricing'/></a>
 		<?php echo $form->error("ProductStore.variable_pricing") ?>
 	</div>	

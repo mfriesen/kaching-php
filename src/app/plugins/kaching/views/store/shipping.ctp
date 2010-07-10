@@ -11,7 +11,7 @@
 		<?php echo $form->create('Store', array('action'=>'addzone', 'class'=>'inline')); ?>
 			<?php echo $form->hidden('id');?>
 			Shipping Zone:&nbsp;&nbsp;
-			<?php echo $form->select("Shippingzone.id", $zones, null, array(), false) ?>
+			<?php echo $form->select("Shippingzone.id", $zones, null, array("empty"=>false)) ?>
 		
 		<?php echo $form->end(array('label'=>"/kaching/img/button-add.png")); ?>
 	<?php } else { ?>

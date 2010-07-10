@@ -12,7 +12,7 @@
 
 <div class="span-3 txt-right"><label class='txt-right' for="paymentprocess">Payment Process:</label></div>
 <div class="span-9">
-	<?php echo $form->select("Store.payment_process", $paymentProcess, null, array(), false) ?>
+	<?php echo $form->select("Store.payment_process", $paymentProcess, null, array("empty"=>false)) ?>
 	<a class="tooltip" title="How Order Payments are processed.<br/>Manual - for stores that have a debit machine and prefer to process order payments manually.">
 		<img width='20' height='20' src='/kaching/img/info.png' alt='payment process'/>
 	</a>
@@ -20,7 +20,7 @@
 </div>
 <div class="span-3 txt-right"><label class='txt-right' for="currency">Currency:</label></div>
 <div class="span-9 span-9-padding10 last">
-	<?php echo $form->select("Store.currency", $currency, null, array(), false) ?>
+	<?php echo $form->select("Store.currency", $currency, null, array("empty"=>false)) ?>
 	<a class="tooltip" title="Required if using Paypal Website Payments Pro">
 		<img width='20' height='20' src='/kaching/img/info.png' alt='store currency'/>
 	</a>
@@ -30,7 +30,7 @@
 
 <div class="span-3 txt-right"><label class='txt-right' for="credit_cards">Credit Card(s):</label></div>
 <div class="span-9">
-	<?php echo $form->select("Store.credit_cards", $ccOptions, null, array(), false) ?>
+	<?php echo $form->select("Store.credit_cards", $ccOptions, null, array("empty"=>false)) ?>
 	<a class="tooltip" title="How to handle Credit Cards security after Order is Completed.<br/>Either: Delete Immediately or Never Delete.">
 		<img width='20' height='20' src='/kaching/img/info.png' alt='credit card info'/>
 	</a>

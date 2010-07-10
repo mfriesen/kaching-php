@@ -11,13 +11,13 @@ if (!empty($countries)) {
 			
 <div class="span-3 txt-right"><label class='txt-right' for="country">Country:</label></div>
 <div class="span-20 last">
-	<?php echo $form->select("Shippingalias.country", $countries, null, array("id"=>"countries"), false) ?>
+	<?php echo $form->select("Shippingalias.country", $countries, null, array("id"=>"countries", "empty"=>false)) ?>
 	<?php echo $form->error("Shippingalias.country") ?>
 </div>
 
 <div class="span-3 txt-right"><label class='txt-right' for="region">Region:</label></div>
 <div class="span-20 last">
-	<?php echo $form->select("Shippingalias.region", $regions, null, array("id"=>"regions"), false) ?>
+	<?php echo $form->select("Shippingalias.region", $regions, null, array("id"=>"regions", "empty"=>false)) ?>
 	<?php echo $form->error("Shippingalias.region") ?>
 </div>
 

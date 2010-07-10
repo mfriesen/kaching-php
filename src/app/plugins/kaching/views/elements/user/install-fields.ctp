@@ -22,7 +22,7 @@
 
 <div class="span-4 txt-right"><label class='txt-right' for="store">Group:</label></div>
 <div class="span-19 last">
-	<?php echo $form->select("User.group_id", $groups, null, array(), false) ?>
+	<?php echo $form->select("User.group_id", $groups, null, array("empty"=>false)) ?>
 	<?php echo $form->error("User.group_id") ?>
 </div>	
 <div class="clear"></div>
@@ -30,7 +30,7 @@
 <?php $activeList = array('1'=>'Active'); ?>
 <div class="span-4 txt-right"><label for="active">Active:</label></div>
 <div class="span-19 span-9-border-1 last">
-	<?php echo $form->select("User.active", $activeList, null, array(), false) ?>
+	<?php echo $form->select("User.active", $activeList, null, array("empty"=>false)) ?>
 	<?php echo $form->error("User.active") ?>
 </div>	
 <div class="clear"></div>
