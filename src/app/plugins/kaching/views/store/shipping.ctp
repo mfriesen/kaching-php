@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching Store Shipping Zones"; ?>
+<?php $this->set("title_for_layout", "Kaching Store Shipping Zones") ?>
 
 <?php echo $this->element('js/prototype', array('plugin'=>'kaching')); ?>
 

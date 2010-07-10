@@ -1,42 +1,37 @@
 <?php
-/* SVN FILE: $Id: translate.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
- * Short description for file.
- *
- * Long description for file
+ * Translate behavior
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
  * @since         CakePHP(tm) v 1.2.0.4525
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
- * Short description for file.
- *
- * Long description for file
+ * Translate behavior
  *
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
+ * @link http://book.cakephp.org/view/1328/Translate
  */
 class TranslateBehavior extends ModelBehavior {
+
 /**
  * Used for runtime configuration of model
  */
 	var $runtime = array();
+
 /**
  * Callback
  *
@@ -69,6 +64,7 @@ class TranslateBehavior extends ModelBehavior {
 		$this->translateModel($model);
 		return $this->bindTranslation($model, $config, false);
 	}
+
 /**
  * Callback
  *
@@ -80,6 +76,7 @@ class TranslateBehavior extends ModelBehavior {
 		unset($this->settings[$model->alias]);
 		unset($this->runtime[$model->alias]);
 	}
+
 /**
  * beforeFind Callback
  *
@@ -93,8 +90,12 @@ class TranslateBehavior extends ModelBehavior {
 			return $query;
 		}
 		$db =& ConnectionManager::getDataSource($model->useDbConfig);
-		$tablePrefix = $db->config['prefix'];
 		$RuntimeModel =& $this->translateModel($model);
+		if (!empty($RuntimeModel->tablePrefix)) {
+			$tablePrefix = $RuntimeModel->tablePrefix;
+		} else {
+			$tablePrefix = $db->config['prefix'];
+		}
 
 		if (is_string($query['fields']) && 'COUNT(*) AS '.$db->name('count') == $query['fields']) {
 			$query['fields'] = 'COUNT(DISTINCT('.$db->name($model->alias . '.' . $model->primaryKey) . ')) ' . $db->alias . 'count';
@@ -200,6 +201,7 @@ class TranslateBehavior extends ModelBehavior {
 		$this->runtime[$model->alias]['beforeFind'] = $addFields;
 		return $query;
 	}
+
 /**
  * afterFind Callback
  *
@@ -244,6 +246,7 @@ class TranslateBehavior extends ModelBehavior {
 		}
 		return $results;
 	}
+
 /**
  * beforeValidate Callback
  *
@@ -276,6 +279,7 @@ class TranslateBehavior extends ModelBehavior {
 		$this->runtime[$model->alias]['beforeSave'] = $tempData;
 		return true;
 	}
+
 /**
  * afterSave Callback
  *
@@ -319,6 +323,7 @@ class TranslateBehavior extends ModelBehavior {
 			}
 		}
 	}
+
 /**
  * afterDelete Callback
  *
@@ -330,6 +335,7 @@ class TranslateBehavior extends ModelBehavior {
 		$conditions = array('model' => $model->alias, 'foreign_key' => $model->id);
 		$RuntimeModel->deleteAll($conditions);
 	}
+
 /**
  * Get selected locale for model
  *
@@ -348,6 +354,7 @@ class TranslateBehavior extends ModelBehavior {
 
 		return $model->locale;
 	}
+
 /**
  * Get instance of model for translations
  *
@@ -373,8 +380,10 @@ class TranslateBehavior extends ModelBehavior {
 		} elseif (empty($model->translateTable) && empty($model->translateModel)) {
 			$this->runtime[$model->alias]['model']->setSource('i18n');
 		}
-		return $this->runtime[$model->alias]['model'];
+		$model =& $this->runtime[$model->alias]['model'];
+		return $model;
 	}
+
 /**
  * Bind translation for fields, optionally with hasMany association for
  * fake field
@@ -447,6 +456,7 @@ class TranslateBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Unbind translation for fields, optionally unbinds hasMany association for
  * fake field
@@ -456,6 +466,9 @@ class TranslateBehavior extends ModelBehavior {
  * @return bool
  */
 	function unbindTranslation(&$model, $fields = null) {
+		if (empty($fields) && empty($this->settings[$model->alias])) {
+			return false;
+		}
 		if (empty($fields)) {
 			return $this->unbindTranslation($model, $this->settings[$model->alias]);
 		}
@@ -499,6 +512,7 @@ class TranslateBehavior extends ModelBehavior {
 	}
 }
 if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
+
 /**
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
@@ -509,4 +523,3 @@ if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
 		var $displayField = 'field';
 	}
 }
-?>

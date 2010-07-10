@@ -1,31 +1,25 @@
 <?php
-/* SVN FILE: $Id: dbo_oracle.php 8283 2009-08-03 20:49:17Z gwoo $ */
 /**
  * Oracle layer for DBO.
  *
- * Long description for file
- *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP v 1.2.0.4041
- * @version       $Revision: 8283 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-08-03 13:49:17 -0700 (Mon, 03 Aug 2009) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
- * Short description for class.
+ * Oracle layer for DBO.
  *
  * Long description for class
  *
@@ -33,33 +27,38 @@
  * @subpackage    cake.cake.libs.model.datasources.dbo
  */
 class DboOracle extends DboSource {
+
 /**
- * Enter description here...
+ * Configuration options
  *
- * @var unknown_type
+ * @var array
  * @access public
  */
 	var $config = array();
+
 /**
- * Enter description here...
+ * Alias
  *
- * @var unknown_type
+ * @var string
  */
 	var $alias = '';
+
 /**
  * Sequence names as introspected from the database
  */
 	var $_sequences = array();
+
 /**
  * Transaction in progress flag
  *
  * @var boolean
  */
 	var $__transactionStarted = false;
+
 /**
- * Enter description here...
+ * Column definitions
  *
- * @var unknown_type
+ * @var array
  * @access public
  */
 	var $columns = array(
@@ -76,27 +75,31 @@ class DboOracle extends DboSource {
 		'boolean' => array('name' => 'boolean'),
 		'number' => array('name' => 'number'),
 		'inet' => array('name' => 'inet'));
+
 /**
- * Enter description here...
+ * Connection object
  *
- * @var unknown_type
+ * @var mixed
  * @access protected
  */
 	var $connection;
+
 /**
- * Enter description here...
+ * Query limit
  *
- * @var unknown_type
+ * @var int
  * @access protected
  */
 	var $_limit = -1;
+
 /**
- * Enter description here...
+ * Query offset
  *
- * @var unknown_type
+ * @var int
  * @access protected
  */
 	var $_offset = 0;
+
 /**
  * Enter description here...
  *
@@ -104,33 +107,38 @@ class DboOracle extends DboSource {
  * @access protected
  */
 	var $_map;
+
 /**
- * Enter description here...
+ * Current Row
  *
- * @var unknown_type
+ * @var mixed
  * @access protected
  */
 	var $_currentRow;
+
 /**
- * Enter description here...
+ * Number of rows
  *
- * @var unknown_type
+ * @var int
  * @access protected
  */
 	var $_numRows;
+
 /**
- * Enter description here...
+ * Query results
  *
- * @var unknown_type
+ * @var mixed
  * @access protected
  */
 	var $_results;
+
 /**
  * Last error issued by oci extension
  *
  * @var unknown_type
  */
 	var $_error;
+
 /**
  * Base configuration settings for MySQL driver
  *
@@ -145,12 +153,14 @@ class DboOracle extends DboSource {
 		'nls_sort' => '',
 		'nls_sort' => ''
 	);
+
 /**
  * Table-sequence map
  *
  * @var unknown_type
  */
 	var $_sequenceMap = array();
+
 /**
  * Connects to the database using options in the given configuration array.
  *
@@ -162,12 +172,11 @@ class DboOracle extends DboSource {
 		$this->connected = false;
 		$config['charset'] = !empty($config['charset']) ? $config['charset'] : null;
 
-		if ($this->config['persistent']) {
-			$connect = 'ociplogon';
+		if (!$config['persistent']) {
+			$this->connection = @ocilogon($config['login'], $config['password'], $config['database'], $config['charset']);
 		} else {
-			$connect = 'ocilogon';
+			$this->connection = @ociplogon($config['login'], $config['password'], $config['database'], $config['charset']);
 		}
-		$this->connection = @$connect($config['login'], $config['password'], $config['database'], $config['charset']);
 
 		if ($this->connection) {
 			$this->connected = true;
@@ -186,10 +195,11 @@ class DboOracle extends DboSource {
 		}
 		return $this->connected;
 	}
-	/**
-	 * Keeps track of the most recent Oracle error
-	 *
-	 */
+
+/**
+ * Keeps track of the most recent Oracle error
+ *
+ */
 	function _setError($source = null, $clear = false) {
 		if ($source) {
 			$e = ocierror($source);
@@ -201,6 +211,7 @@ class DboOracle extends DboSource {
 			$this->_error = null;
 		}
 	}
+
 /**
  * Sets the encoding language of the session
  *
@@ -213,6 +224,7 @@ class DboOracle extends DboSource {
 		}
 		return true;
 	}
+
 /**
  * Gets the current encoding language
  *
@@ -229,6 +241,7 @@ class DboOracle extends DboSource {
 		}
 		return $row[0]['VALUE'];
 	}
+
 /**
  * Disconnects from database.
  *
@@ -241,6 +254,7 @@ class DboOracle extends DboSource {
 			return !$this->connected;
 		}
 	}
+
 /**
  * Scrape the incoming SQL to create the association map. This is an extremely
  * experimental method that creates the association maps since Oracle will not tell us.
@@ -290,6 +304,7 @@ class DboOracle extends DboSource {
 			$this->_map[] = array($table, $field);
 		}
 	}
+
 /**
  * Modify a SQL query to limit (and offset) the result set
  *
@@ -302,6 +317,7 @@ class DboOracle extends DboSource {
 		$this->_limit = (int) $limit;
 		$this->_offset = (int) $offset;
 	}
+
 /**
  * Returns number of rows in previous resultset. If no previous resultset exists,
  * this returns false.
@@ -312,6 +328,7 @@ class DboOracle extends DboSource {
 	function lastNumRows() {
 		return $this->_numRows;
 	}
+
 /**
  * Executes given SQL statement. This is an overloaded method.
  *
@@ -359,10 +376,11 @@ class DboOracle extends DboSource {
 		$this->limit();
 		return $this->_statementId;
 	}
+
 /**
- * Enter description here...
+ * Fetch result row
  *
- * @return unknown
+ * @return array
  * @access public
  */
 	function fetchRow() {
@@ -388,6 +406,7 @@ class DboOracle extends DboSource {
 		$this->_currentRow++;
 		return $resultRow;
 	}
+
 /**
  * Fetches the next row from the current result set
  *
@@ -396,6 +415,7 @@ class DboOracle extends DboSource {
 	function fetchResult() {
 		return $this->fetchRow();
 	}
+
 /**
  * Checks to see if a named sequence exists
  *
@@ -410,6 +430,7 @@ class DboOracle extends DboSource {
 		}
 		return $this->fetchRow();
 	}
+
 /**
  * Creates a database sequence
  *
@@ -421,17 +442,19 @@ class DboOracle extends DboSource {
 		$sql = "CREATE SEQUENCE $sequence";
 		return $this->execute($sql);
 	}
+
 /**
- * Enter description here...
+ * Create trigger
  *
- * @param unknown_type $table
- * @return unknown
+ * @param string $table
+ * @return mixed
  * @access public
  */
 	function createTrigger($table) {
 		$sql = "CREATE OR REPLACE TRIGGER pk_$table" . "_trigger BEFORE INSERT ON $table FOR EACH ROW BEGIN SELECT pk_$table.NEXTVAL INTO :NEW.ID FROM DUAL; END;";
 		return $this->execute($sql);
 	}
+
 /**
  * Returns an array of tables in the database. If there are no tables, an error is
  * raised and the application exits.
@@ -457,6 +480,7 @@ class DboOracle extends DboSource {
 		parent::listSources($sources);
 		return $sources;
 	}
+
 /**
  * Returns an array of the fields in given table name.
  *
@@ -465,7 +489,7 @@ class DboOracle extends DboSource {
  * @access public
  */
 	function describe(&$model) {
-		$table = $model->fullTableName($model, false);
+		$table = $this->fullTableName($model, false);
 
 		if (!empty($model->sequence)) {
 			$this->_sequenceMap[$table] = $model->sequence;
@@ -498,6 +522,7 @@ class DboOracle extends DboSource {
 
 		return $fields;
 	}
+
 /**
  * Deletes all the records in a table and drops all associated auto-increment sequences.
  * Using DELETE instead of TRUNCATE because it causes locking problems.
@@ -543,6 +568,7 @@ class DboOracle extends DboSource {
 		}
 		return true;
 	}
+
 /**
  * Enables, disables, and lists table constraints
  *
@@ -557,7 +583,7 @@ class DboOracle extends DboSource {
  */
 	function constraint($action, $table) {
 		if (empty($table)) {
-			trigger_error(__('Must specify table to operate on constraints'));
+			trigger_error(__('Must specify table to operate on constraints', true));
 		}
 
 		$table = strtoupper($table);
@@ -615,11 +641,12 @@ class DboOracle extends DboSource {
 					return $constraints;
 					break;
 				default:
-					trigger_error(__('DboOracle::constraint() accepts only enable, disable, or list'));
+					trigger_error(__('DboOracle::constraint() accepts only enable, disable, or list', true));
 			}
 		}
 		return true;
 	}
+
 /**
  * Returns an array of the indexes in given table name.
  *
@@ -661,6 +688,7 @@ class DboOracle extends DboSource {
 		}
 		return $index;
 	}
+
 /**
  * Generate a Oracle Alter Table syntax for the given Schema comparison
  *
@@ -704,11 +732,12 @@ class DboOracle extends DboSource {
 						break;
 					}
 				}
-				$out .= "\t" . join(",\n\t", $colList) . ";\n\n";
+				$out .= "\t" . implode(",\n\t", $colList) . ";\n\n";
 			}
 		}
 		return $out;
 	}
+
 /**
  * This method should quote Oracle identifiers. Well it doesn't.
  * It would break all scaffolding and all of Cake's default assumptions.
@@ -730,6 +759,7 @@ class DboOracle extends DboSource {
 		}
 		return $name;
 	}
+
 /**
  * Begin a transaction
  *
@@ -741,6 +771,7 @@ class DboOracle extends DboSource {
 		$this->__transactionStarted = true;
 		return true;
 	}
+
 /**
  * Rollback a transaction
  *
@@ -752,6 +783,7 @@ class DboOracle extends DboSource {
 	function rollback() {
 		return ocirollback($this->connection);
 	}
+
 /**
  * Commit a transaction
  *
@@ -764,6 +796,7 @@ class DboOracle extends DboSource {
 		$this->__transactionStarted = false;
 		return ocicommit($this->connection);
 	}
+
 /**
  * Converts database-layer column types to basic types
  *
@@ -814,6 +847,7 @@ class DboOracle extends DboSource {
 		}
 		return 'text';
 	}
+
 /**
  * Returns a quoted and escaped string of $data for use in an SQL statement.
  *
@@ -854,6 +888,7 @@ class DboOracle extends DboSource {
 		}
 		return $data;
 	}
+
 /**
  * Returns the ID generated from the previous INSERT operation.
  *
@@ -874,6 +909,7 @@ class DboOracle extends DboSource {
 		}
 		return false;
 	}
+
 /**
  * Returns a formatted error message from previous database operation.
  *
@@ -883,6 +919,7 @@ class DboOracle extends DboSource {
 	function lastError() {
 		return $this->_error;
 	}
+
 /**
  * Returns number of affected rows in previous database operation. If no previous operation exists, this returns false.
  *
@@ -892,6 +929,7 @@ class DboOracle extends DboSource {
 	function lastAffected() {
 		return $this->_statementId ? ocirowcount($this->_statementId): false;
 	}
+
 /**
  * Renders a final SQL statement by putting together the component parts in the correct order
  *
@@ -905,7 +943,7 @@ class DboOracle extends DboSource {
 
 		switch (strtolower($type)) {
 			case 'select':
-				return "SELECT {$fields} FROM {$table} {$alias} {$joins} {$conditions} {$order} {$limit}";
+				return "SELECT {$fields} FROM {$table} {$alias} {$joins} {$conditions} {$group} {$order} {$limit}";
 			break;
 			case 'create':
 				return "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
@@ -925,7 +963,7 @@ class DboOracle extends DboSource {
 			case 'schema':
 				foreach (array('columns', 'indexes') as $var) {
 					if (is_array(${$var})) {
-						${$var} = "\t" . join(",\n\t", array_filter(${$var}));
+						${$var} = "\t" . implode(",\n\t", array_filter(${$var}));
 					}
 				}
 				if (trim($indexes) != '') {
@@ -937,6 +975,7 @@ class DboOracle extends DboSource {
 				break;
 		}
 	}
+
 /**
  * Enter description here...
  *
@@ -977,7 +1016,7 @@ class DboOracle extends DboSource {
 					$fetch = array();
 					$ins = array_chunk($ins, 1000);
 					foreach ($ins as $i) {
-						$q = str_replace('{$__cakeID__$}', join(', ', $i), $query);
+						$q = str_replace('{$__cakeID__$}', implode(', ', $i), $query);
 						$q = str_replace('= (', 'IN (', $q);
 						$res = $this->fetchAll($q, $model->cacheQueries, $model->alias);
 						$fetch = array_merge($fetch, $res);
@@ -1021,10 +1060,9 @@ class DboOracle extends DboSource {
 					$fetch = array();
 					$ins = array_chunk($ins, 1000);
 					foreach ($ins as $i) {
-						$q = str_replace('{$__cakeID__$}', '(' .join(', ', $i) .')', $query);
+						$q = str_replace('{$__cakeID__$}', '(' .implode(', ', $i) .')', $query);
 						$q = str_replace('= (', 'IN (', $q);
 						$q = str_replace('  WHERE 1 = 1', '', $q);
-
 
 						$q = $this->insertQueryData($q, null, $association, $assocData, $model, $linkModel, $stack);
 						if ($q != false) {
@@ -1095,14 +1133,15 @@ class DboOracle extends DboSource {
 			}
 		}
 	}
-	/**
-	 * Generate a "drop table" statement for the given Schema object
-	 *
-	 * @param object $schema An instance of a subclass of CakeSchema
-	 * @param string $table Optional.  If specified only the table name given will be generated.
-	 *						Otherwise, all tables defined in the schema are generated.
-	 * @return string
-	 */
+
+/**
+ * Generate a "drop table" statement for the given Schema object
+ *
+ * @param object $schema An instance of a subclass of CakeSchema
+ * @param string $table Optional.  If specified only the table name given will be generated.
+ *						Otherwise, all tables defined in the schema are generated.
+ * @return string
+ */
 		function dropSchema($schema, $table = null) {
 			if (!is_a($schema, 'CakeSchema')) {
 				trigger_error(__('Invalid schema object', true), E_USER_WARNING);
@@ -1118,4 +1157,3 @@ class DboOracle extends DboSource {
 			return $out;
 		}
 }
-?>

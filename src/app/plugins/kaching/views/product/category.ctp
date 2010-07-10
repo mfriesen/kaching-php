@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Product Category Maintenance"; ?>
+<?php $this->set("title_for_layout", "Kaching: Product Category Maintenance") ?>
 
 <?php $id = $this->data['Product']['id']?>
 <?php echo $this->element('product/menu', array("plugin"=>"kaching", "product"=>$this->data,'tab'=>'1')); ?>

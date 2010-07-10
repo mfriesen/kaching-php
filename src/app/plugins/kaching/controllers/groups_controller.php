@@ -54,7 +54,7 @@ class GroupsController extends AdminController {
 	function delete($id=null)
 	{
 		if ($id != null && is_numeric($id)) {
-			$this->Group->del($id);
+			$this->Group->delete($id);
 		}
 		
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'groups', 'action' => "search"));

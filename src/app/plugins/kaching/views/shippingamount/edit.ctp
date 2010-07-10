@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Shipping Zones Maintenance"; ?>
+<?php $this->set("title_for_layout", "Kaching: Shipping Zones Maintenance") ?>
 
 <?php echo $this->element('shippingzone/menu', array("zone"=>$shippingzone,'tab'=>'1')); ?>
 

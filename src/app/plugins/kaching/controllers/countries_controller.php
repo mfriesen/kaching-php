@@ -62,7 +62,7 @@ class CountriesController extends AdminController {
 	 * @param $id
 	 */
 	function delete($id) {
-		$this->Country->del($id);
+		$this->Country->delete($id);
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'countries', 'action' => "index"));
 	}
 }

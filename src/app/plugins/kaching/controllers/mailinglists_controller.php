@@ -75,7 +75,7 @@ class MailinglistsController extends AdminController
 	function delete($id=null)
 	{
 		if ($id != null && is_numeric($id)) {
-			$this->Mailinglist->del($id);
+			$this->Mailinglist->delete($id);
 		}
 		
 		if (!isset($this->params['requested'])) {

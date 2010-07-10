@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Product Search"; ?>
+<?php $this->set("title_for_layout", "Kaching: Product Search") ?>
 
 <div class="tab-pane padding10">
 	<?php echo $form->create('Productsearch', array('action'=>'index', 'class'=>'inline')); ?>

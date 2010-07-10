@@ -72,7 +72,7 @@ class RegionsController extends AdminController {
 		$this->data = $this->Region->findById($id);
 		$country_id = $this->data['Region']['country_id'];
 		
-		$this->Region->del($id);
+		$this->Region->delete($id);
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'regions', 'action' => "index/$country_id"));
 	}
 }

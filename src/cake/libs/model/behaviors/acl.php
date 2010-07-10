@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id: acl.php 7945 2008-12-19 02:16:01Z gwoo $ */
 /**
  * ACL behavior class.
  *
@@ -7,32 +6,29 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2006-2008, Cake Software Foundation, Inc.
+ * CakePHP :  Rapid Development Framework (http://cakephp.org)
+ * Copyright 2006-2010, Cake Software Foundation, Inc.
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2006-2008, Cake Software Foundation, Inc.
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP Project
+ * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
+ * @link          http://cakephp.org CakePHP Project
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
  * @since         CakePHP v 1.2.0.4487
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
- * Short description for file
- *
- * Long description for file
+ * ACL behavior
  *
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
+ * @link http://book.cakephp.org/view/1320/ACL
  */
 class AclBehavior extends ModelBehavior {
+
 /**
  * Maps ACL type options to ACL models
  *
@@ -40,6 +36,7 @@ class AclBehavior extends ModelBehavior {
  * @access protected
  */
 	var $__typeMaps = array('requester' => 'Aro', 'controlled' => 'Aco');
+
 /**
  * Sets up the configuation for the model, and loads ACL models if they haven't been already
  *
@@ -55,19 +52,25 @@ class AclBehavior extends ModelBehavior {
 
 		$type = $this->__typeMaps[$this->settings[$model->name]['type']];
 		if (!class_exists('AclNode')) {
-			uses('model' . DS . 'db_acl');
+			require LIBS . 'model' . DS . 'db_acl.php';
 		}
-		$model->{$type} =& ClassRegistry::init($type);
+		if (PHP5) {
+			$model->{$type} = ClassRegistry::init($type);
+		} else {
+			$model->{$type} =& ClassRegistry::init($type);
+		}
 		if (!method_exists($model, 'parentNode')) {
-			trigger_error("Callback parentNode() not defined in {$model->alias}", E_USER_WARNING);
+			trigger_error(sprintf(__('Callback parentNode() not defined in %s', true), $model->alias), E_USER_WARNING);
 		}
 	}
+
 /**
  * Retrieves the Aro/Aco node for this model
  *
  * @param mixed $ref
  * @return array
  * @access public
+ * @link http://book.cakephp.org/view/1322/node
  */
 	function node(&$model, $ref = null) {
 		$type = $this->__typeMaps[strtolower($this->settings[$model->name]['type'])];
@@ -76,6 +79,7 @@ class AclBehavior extends ModelBehavior {
 		}
 		return $model->{$type}->node($ref);
 	}
+
 /**
  * Creates a new ARO/ACO node bound to this record
  *
@@ -84,23 +88,24 @@ class AclBehavior extends ModelBehavior {
  * @access public
  */
 	function afterSave(&$model, $created) {
-		if ($created) {
-			$type = $this->__typeMaps[strtolower($this->settings[$model->name]['type'])];
-			$parent = $model->parentNode();
-			if (!empty($parent)) {
-				$parent = $this->node($model, $parent);
-			} else {
-				$parent = null;
-			}
-
-			$model->{$type}->create();
-			$model->{$type}->save(array(
-				'parent_id'		=> Set::extract($parent, "0.{$type}.id"),
-				'model'			=> $model->name,
-				'foreign_key'	=> $model->id
-			));
+		$type = $this->__typeMaps[strtolower($this->settings[$model->alias]['type'])];
+		$parent = $model->parentNode();
+		if (!empty($parent)) {
+			$parent = $this->node($model, $parent);
 		}
+		$data = array(
+			'parent_id' => isset($parent[0][$type]['id']) ? $parent[0][$type]['id'] : null,
+			'model' => $model->alias,
+			'foreign_key' => $model->id
+		);
+		if (!$created) {
+			$node = $this->node($model);
+			$data['id'] = isset($node[0][$type]['id']) ? $node[0][$type]['id'] : null;
+		}
+		$model->{$type}->create();
+		$model->{$type}->save($data);
 	}
+
 /**
  * Destroys the ARO/ACO node bound to the deleted record
  *
@@ -115,5 +120,3 @@ class AclBehavior extends ModelBehavior {
 		}
 	}
 }
-
-?>

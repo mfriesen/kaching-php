@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching Store Maintenance"; ?>
+<?php $this->set("title_for_layout", "Kaching Store Maintenance") ?>
 
 <?php echo $this->element('js/prototype', array('plugin'=>'kaching')); ?>
 

@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Product Retail Maintenance"; ?>
+<?php $this->set("title_for_layout", "Kaching: Product Retail Maintenance") ?>
 
 <?php echo $this->element('product/menu', array("plugin"=>"kaching", "product"=>$product,'tab'=>'2')); ?>
 

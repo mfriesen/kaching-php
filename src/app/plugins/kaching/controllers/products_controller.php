@@ -26,7 +26,7 @@ class ProductsController extends AdminController {
 	var $name = 'Product';
 	var $viewPath = "product";
 	var $components = array('Auth', 'RequestHandler', 'Kaching.ControllerUtil', 'Kaching.ProductsUtil');
-	var $helpers = array('Ajax', 'Date', 'Html', 'Javascript', 'Kaching.Cart');
+	var $helpers = array('Ajax', 'Kaching.Date', 'Html', 'Javascript', 'Kaching.Cart');
 	var $uses = array('Kaching.Product', 'Kaching.Category', 'Kaching.ProductCategory', 'Kaching.ProductStore', 'Kaching.Store');
 	
     function view($id=null) {
@@ -83,7 +83,7 @@ class ProductsController extends AdminController {
     
     function deleteCategory($id, $productCategoryId) {
     	
-    	$this->Product->ProductCategory->del($productCategoryId);
+    	$this->Product->ProductCategory->delete($productCategoryId);
     	$this->ProductsUtil->updateModifiedDate($id);
     	$this->flash('Your category has been deleted.', 'view/' . $id);
     }
@@ -148,7 +148,7 @@ class ProductsController extends AdminController {
     
     function deleteRetail($id, $productStoreId) {
     	
-    	$this->Product->ProductStore->del($productStoreId);
+    	$this->Product->ProductStore->delete($productStoreId);
     	$this->ProductsUtil->updateModifiedDate($id);
     	$this->flash('Retail has been deleted.', 'view/' . $id);
     }

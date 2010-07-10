@@ -26,7 +26,7 @@ class OrdersearchesController extends AdminController
 	var $name = 'Ordersearch';
 	var $viewPath = 'order';
 	var $components = array('Kaching.ControllerUtil', 'Auth');
-	var $helpers = array('Html', 'Javascript', 'Date', 'OrderUtil');
+	var $helpers = array('Html', 'Javascript', 'Kaching.Date', 'Kaching.OrderUtil');
 	var $uses = array('Kaching.Ordersearch', 'Kaching.Order');
 	
 	var $paginate = array('Order' => array('limit' => 10, 'order' => array('Order.inserted_date' => 'asc')));

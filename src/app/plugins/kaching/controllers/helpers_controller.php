@@ -72,6 +72,15 @@ class HelpersController extends KachingAppController
 		return $retList;
 	}
 	
+	function get_holidays($store_id) {
+		$this->Store->recursive = 1;
+		
+		$this->Store->unbindModel( array('hasOne' => array('Storesmtp'), 'hasAndBelongsToMany' => array('Shippingzone')) );
+		
+		$store = $this->Store->findById($store_id);
+		return $store['StoreHoliday'];
+	}
+	
 	/**
 	 * Calculates Shipping - used to determine how much shipping would be 
 	 */

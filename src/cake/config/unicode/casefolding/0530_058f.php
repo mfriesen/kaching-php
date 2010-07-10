@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id: 0530_058f.php 7945 2008-12-19 02:16:01Z gwoo $ */
 /**
  * Case Folding Properties.
  *
@@ -11,23 +10,20 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.config.unicode.casefolding
  * @since         CakePHP(tm) v 1.2.0.5691
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * The upper field is the decimal value of the upper case character
  *
@@ -81,4 +77,3 @@ $config['0530_058f'][] = array('upper' => 1363, 'status' => 'C', 'lower' => arra
 $config['0530_058f'][] = array('upper' => 1364, 'status' => 'C', 'lower' => array(1412)); /* ARMENIAN CAPITAL LETTER KEH */
 $config['0530_058f'][] = array('upper' => 1365, 'status' => 'C', 'lower' => array(1413)); /* ARMENIAN CAPITAL LETTER OH */
 $config['0530_058f'][] = array('upper' => 1366, 'status' => 'C', 'lower' => array(1414)); /* ARMENIAN CAPITAL LETTER FEH */
-?>

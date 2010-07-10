@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching Group Edit"; ?>
+<?php $this->set("title_for_layout", "Kaching Group Edit") ?>
 
 <div class="tab-pane padding10">
 

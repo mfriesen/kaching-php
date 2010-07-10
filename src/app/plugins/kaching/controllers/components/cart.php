@@ -76,7 +76,7 @@ class CartComponent extends Object {
 	 */
 	function destroy($store_number) {
 		$session_name = $this->__getSessionName($store_number);
-		$this->controller->Session->del($session_name);
+		$this->controller->Session->delete($session_name);
 	}
 	
 	/**

@@ -22,6 +22,10 @@ class CartHelper extends AppHelper
 		return number_format($total, 2);
 	}
 	
+	function store_id($cart) {
+		return isset($cart['Order']['store_id']) ? $cart['Order']['store_id'] : -1;
+	}
+	
 	/**
 	 * Returns product store variables as a list
 	 * @param $product

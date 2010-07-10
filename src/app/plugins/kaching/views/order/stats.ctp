@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Order Status"; ?>
+<?php $this->set("title_for_layout", "Kaching: Order Status") ?>
 
 <script type="text/javascript">
 	$(document).ready(function()

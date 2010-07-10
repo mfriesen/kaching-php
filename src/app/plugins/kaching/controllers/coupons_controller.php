@@ -27,7 +27,7 @@ class CouponsController extends AdminController {
 	var $viewPath = "coupon";
 	var $components = array('Auth', 'Kaching.ControllerUtil');
 	var $uses = array("Kaching.Coupon", "Kaching.Store");
-	var $helpers = array('Ajax', 'Session', 'Html', 'Javascript', 'Date');
+	var $helpers = array('Ajax', 'Session', 'Html', 'Javascript', 'Kaching.Date');
 	var $paginate = array('Coupon' => array('limit' => 10, 'order' => array('end' => 'desc', 'start' => 'desc', 'title'=>'asc')));
 	
 	/**
@@ -70,7 +70,7 @@ class CouponsController extends AdminController {
 	function delete($id=null) {
 		
 		if ($id != null && is_numeric($id)) {
-			$this->Coupon->del($id);
+			$this->Coupon->delete($id);
 		}
 		
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'coupons', 'action' => "index"));

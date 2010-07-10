@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id: 1f00_1fff.php 7945 2008-12-19 02:16:01Z gwoo $ */
 /**
  * Case Folding Properties.
  *
@@ -11,23 +10,20 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.config.unicode.casefolding
  * @since         CakePHP(tm) v 1.2.0.5691
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * The upper field is the decimal value of the upper case character
  *
@@ -219,4 +215,3 @@ $config['1f00_1fff'][] = array('upper' => 8186, 'status' => 'C', 'lower' => arra
 $config['1f00_1fff'][] = array('upper' => 8187, 'status' => 'C', 'lower' => array(8061)); /* GREEK CAPITAL LETTER OMEGA WITH OXIA */
 $config['1f00_1fff'][] = array('upper' => 8188, 'status' => 'F', 'lower' => array(969, 953)); /* GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI */
 $config['1f00_1fff'][] = array('upper' => 8188, 'status' => 'S', 'lower' => array(8179)); /* GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI */
-?>

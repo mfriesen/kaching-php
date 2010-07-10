@@ -22,7 +22,8 @@ class Store extends KachingAppModel {
 	var $name = 'Store';
 	var $recursive = -1;
 
-	var $hasOne = array('Storesmtp' => array('className' => 'Kaching.Storesmtp')); 
+	var $hasOne = array('Storesmtp' => array('className' => 'Kaching.Storesmtp'));
+	var $hasMany = array('StoreHoliday' => array('className' => 'Kaching.StoreHoliday', 'order' => 'StoreHoliday.date desc')); 
 	
 	var $hasAndBelongsToMany = array(
 		'Shippingzone' =>

@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id: tree.php 8283 2009-08-03 20:49:17Z gwoo $ */
 /**
  * Tree behavior class.
  *
@@ -7,39 +6,39 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2006-2008, Cake Software Foundation, Inc.
+ * CakePHP :  Rapid Development Framework (http://cakephp.org)
+ * Copyright 2006-2010, Cake Software Foundation, Inc.
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2006-2008, Cake Software Foundation, Inc.
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP Project
+ * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
+ * @link          http://cakephp.org CakePHP Project
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
  * @since         CakePHP v 1.2.0.4487
- * @version       $Revision: 8283 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-08-03 13:49:17 -0700 (Mon, 03 Aug 2009) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Tree Behavior.
  *
  * Enables a model object to act as a node-based tree. Using Modified Preorder Tree Traversal
- * 
+ *
  * @see http://en.wikipedia.org/wiki/Tree_traversal
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
+ * @link http://book.cakephp.org/view/1339/Tree
  */
 class TreeBehavior extends ModelBehavior {
+
 /**
  * Errors
  *
  * @var array
  */
 	var $errors = array();
+
 /**
  * Defaults
  *
@@ -50,6 +49,7 @@ class TreeBehavior extends ModelBehavior {
 		'parent' => 'parent_id', 'left' => 'lft', 'right' => 'rght',
 		'scope' => '1 = 1', 'type' => 'nested', '__parentChange' => false, 'recursive' => -1
 	);
+
 /**
  * Initiate Tree behavior
  *
@@ -72,6 +72,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		$this->settings[$Model->alias] = $settings;
 	}
+
 /**
  * After save method. Called after all saves
  *
@@ -94,6 +95,7 @@ class TreeBehavior extends ModelBehavior {
 			return $this->_setParent($Model, $Model->data[$Model->alias][$parent]);
 		}
 	}
+
 /**
  * Before delete method. Called before all deletes
  *
@@ -123,6 +125,7 @@ class TreeBehavior extends ModelBehavior {
 		$this->__sync($Model, $diff, '-', '> ' . $data[$right]);
 		return true;
 	}
+
 /**
  * Before save method. Called before all saves
  *
@@ -137,15 +140,6 @@ class TreeBehavior extends ModelBehavior {
  */
 	function beforeSave(&$Model) {
 		extract($this->settings[$Model->alias]);
-
-		if (isset($Model->data[$Model->alias][$Model->primaryKey])) {
-			if ($Model->data[$Model->alias][$Model->primaryKey]) {
-				if (!$Model->id) {
-					$Model->id = $Model->data[$Model->alias][$Model->primaryKey];
-				}
-			}
-			unset($Model->data[$Model->alias][$Model->primaryKey]);
-		}
 
 		$this->_addToWhitelist($Model, array($left, $right));
 		if (!$Model->id) {
@@ -173,10 +167,15 @@ class TreeBehavior extends ModelBehavior {
 				$Model->data[$Model->alias][$parent] = null;
 				$this->_addToWhitelist($Model, $parent);
 			} else {
-				list($node) = array_values($Model->find('first', array(
+				$values = $Model->find('first', array(
 					'conditions' => array($scope,$Model->escapeField() => $Model->id),
 					'fields' => array($Model->primaryKey, $parent, $left, $right ), 'recursive' => $recursive)
-				));
+				);
+
+				if ($values === false) {
+					return false;
+				}
+				list($node) = array_values($values);
 
 				$parentNode = $Model->find('first', array(
 					'conditions' => array($scope, $Model->escapeField() => $Model->data[$Model->alias][$parent]),
@@ -196,6 +195,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Get the number of child nodes
  *
@@ -207,6 +207,7 @@ class TreeBehavior extends ModelBehavior {
  * @param boolean $direct whether to count direct, or all, children
  * @return integer number of child nodes
  * @access public
+ * @link http://book.cakephp.org/view/1347/Counting-children
  */
 	function childcount(&$Model, $id = null, $direct = false) {
 		if (is_array($id)) {
@@ -236,6 +237,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return ($data[$right] - $data[$left] - 1) / 2;
 	}
+
 /**
  * Get the child nodes of the current model
  *
@@ -252,6 +254,7 @@ class TreeBehavior extends ModelBehavior {
  * @param integer $recursive The number of levels deep to fetch associated records
  * @return array Array of child nodes
  * @access public
+ * @link http://book.cakephp.org/view/1346/Children
  */
 	function children(&$Model, $id = null, $direct = false, $fields = null, $order = null, $limit = null, $page = 1, $recursive = null) {
 		if (is_array($id)) {
@@ -297,6 +300,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return $Model->find('all', compact('conditions', 'fields', 'order', 'limit', 'page', 'recursive'));
 	}
+
 /**
  * A convenience method for returning a hierarchical array used for HTML select boxes
  *
@@ -308,6 +312,7 @@ class TreeBehavior extends ModelBehavior {
  * @param integer $recursive The number of levels deep to fetch associated records
  * @return array An associative array of records, where the id is the key, and the display field is the value
  * @access public
+ * @link http://book.cakephp.org/view/1348/generatetreelist
  */
 	function generatetreelist(&$Model, $conditions = null, $keyPath = null, $valuePath = null, $spacer = '_', $recursive = null) {
 		$overrideRecursive = $recursive;
@@ -352,6 +357,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return Set::combine($results, $keyPath, $valuePath);
 	}
+
 /**
  * Get the parent node
  *
@@ -362,6 +368,7 @@ class TreeBehavior extends ModelBehavior {
  * @param integer $recursive The number of levels deep to fetch associated records
  * @return array Array of data for the parent node
  * @access public
+ * @link http://book.cakephp.org/view/1349/getparentnode
  */
 	function getparentnode(&$Model, $id = null, $fields = null, $recursive = null) {
 		if (is_array($id)) {
@@ -375,7 +382,7 @@ class TreeBehavior extends ModelBehavior {
 		if (!is_null($overrideRecursive)) {
 			$recursive = $overrideRecursive;
 		}
-		$parentId = $Model->read($parent, $id);
+		$parentId = $Model->find('first', array('conditions' => array($Model->primaryKey => $id), 'fields' => array($parent), 'recursive' => -1));
 
 		if ($parentId) {
 			$parentId = $parentId[$Model->alias][$parent];
@@ -385,6 +392,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return false;
 	}
+
 /**
  * Get the path to the given node
  *
@@ -394,6 +402,7 @@ class TreeBehavior extends ModelBehavior {
  * @param integer $recursive The number of levels deep to fetch associated records
  * @return array Array of nodes from top most parent to current node
  * @access public
+ * @link http://book.cakephp.org/view/1350/getpath
  */
 	function getpath(&$Model, $id = null, $fields = null, $recursive = null) {
 		if (is_array($id)) {
@@ -420,6 +429,7 @@ class TreeBehavior extends ModelBehavior {
 		));
 		return $results;
 	}
+
 /**
  * Reorder the node without changing the parent.
  *
@@ -430,6 +440,7 @@ class TreeBehavior extends ModelBehavior {
  * @param mixed $number how many places to move the node or true to move to last position
  * @return boolean true on success, false on failure
  * @access public
+ * @link http://book.cakephp.org/view/1352/moveDown
  */
 	function movedown(&$Model, $id = null, $number = 1) {
 		if (is_array($id)) {
@@ -460,7 +471,7 @@ class TreeBehavior extends ModelBehavior {
 			'fields' => array($Model->primaryKey, $left, $right), 'recursive' => $recursive)
 		);
 		if ($nextNode) {
-			list($nextNode)= array_values($nextNode);
+			list($nextNode) = array_values($nextNode);
 		} else {
 			return false;
 		}
@@ -477,6 +488,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Reorder the node without changing the parent.
  *
@@ -487,6 +499,7 @@ class TreeBehavior extends ModelBehavior {
  * @param mixed $number how many places to move the node, or true to move to first position
  * @return boolean true on success, false on failure
  * @access public
+ * @link http://book.cakephp.org/view/1353/moveUp
  */
 	function moveup(&$Model, $id = null, $number = 1) {
 		if (is_array($id)) {
@@ -535,6 +548,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Recover a corrupted tree
  *
@@ -550,6 +564,7 @@ class TreeBehavior extends ModelBehavior {
  * delete, or the id of the parent to set as the parent_id
  * @return boolean true on success, false on failure
  * @access public
+ * @link http://book.cakephp.org/view/1628/Recover
  */
 	function recover(&$Model, $mode = 'parent', $missingParentAction = null) {
 		if (is_array($mode)) {
@@ -609,6 +624,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Reorder method.
  *
@@ -616,9 +632,9 @@ class TreeBehavior extends ModelBehavior {
  * This method does not change the parent of any node.
  *
  * Requires a valid tree, by default it verifies the tree before beginning.
- * 
+ *
  * Options:
- * 
+ *
  * - 'id' id of record to use as top node for reordering
  * - 'field' Which field to use in reordeing defaults to displayField
  * - 'order' Direction to order either DESC or ASC (defaults to ASC)
@@ -627,6 +643,8 @@ class TreeBehavior extends ModelBehavior {
  * @param AppModel $Model Model instance
  * @param array $options array of options to use in reordering.
  * @return boolean true on success, false on failure
+ * @link http://book.cakephp.org/view/1355/reorder
+ * @link http://book.cakephp.org/view/1629/Reorder
  */
 	function reorder(&$Model, $options = array()) {
 		$options = array_merge(array('id' => null, 'field' => $Model->displayField, 'order' => 'ASC', 'verify' => true), $options);
@@ -640,6 +658,8 @@ class TreeBehavior extends ModelBehavior {
 		$sort = $field . ' ' . $order;
 		$nodes = $this->children($Model, $id, true, $fields, $sort, null, null, $recursive);
 
+		$cacheQueries = $Model->cacheQueries;
+		$Model->cacheQueries = false;
 		if ($nodes) {
 			foreach ($nodes as $node) {
 				$id = $node[$Model->alias][$Model->primaryKey];
@@ -649,8 +669,10 @@ class TreeBehavior extends ModelBehavior {
 				}
 			}
 		}
+		$Model->cacheQueries = $cacheQueries;
 		return true;
 	}
+
 /**
  * Remove the current node from the tree, and reparent all children up one level.
  *
@@ -662,6 +684,7 @@ class TreeBehavior extends ModelBehavior {
  * @param boolean $delete whether to delete the node after reparenting children (if any)
  * @return boolean true on success, false on failure
  * @access public
+ * @link http://book.cakephp.org/view/1354/removeFromTree
  */
 	function removefromtree(&$Model, $id = null, $delete = false) {
 		if (is_array($id)) {
@@ -720,6 +743,7 @@ class TreeBehavior extends ModelBehavior {
 			);
 		}
 	}
+
 /**
  * Check if the current tree is valid.
  *
@@ -729,6 +753,7 @@ class TreeBehavior extends ModelBehavior {
  * @return mixed true if the tree is valid or empty, otherwise an array of (error type [index, node],
  *  [incorrect left/right index,node id], message)
  * @access public
+ * @link http://book.cakephp.org/view/1630/Verify
  */
 	function verify(&$Model) {
 		extract($this->settings[$Model->alias]);
@@ -789,6 +814,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Sets the parent of the given node
  *
@@ -814,11 +840,16 @@ class TreeBehavior extends ModelBehavior {
 			$this->__sync($Model, $edge - $node[$left] + 1, '+', 'BETWEEN ' . $node[$left] . ' AND ' . $node[$right], $created);
 			$this->__sync($Model, $node[$right] - $node[$left] + 1, '-', '> ' . $node[$left], $created);
 		} else {
-			$parentNode = array_values($Model->find('first', array(
+			$values = $Model->find('first', array(
 				'conditions' => array($scope, $Model->escapeField() => $parentId),
 				'fields' => array($Model->primaryKey, $left, $right),
 				'recursive' => $recursive
-			)));
+			));
+
+			if ($values === false) {
+				return false;
+			}
+			$parentNode = array_values($values);
 
 			if (empty($parentNode) || empty($parentNode[0])) {
 				return false;
@@ -858,6 +889,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * get the maximum index value in the table.
  *
@@ -885,6 +917,7 @@ class TreeBehavior extends ModelBehavior {
 		)));
 		return (empty($edge[$right])) ? 0 : $edge[$right];
 	}
+
 /**
  * get the minimum index value in the table.
  *
@@ -904,6 +937,7 @@ class TreeBehavior extends ModelBehavior {
 		)));
 		return (empty($edge[$left])) ? 0 : $edge[$left];
 	}
+
 /**
  * Table sync method.
  *
@@ -938,4 +972,3 @@ class TreeBehavior extends ModelBehavior {
 		$Model->recursive = $ModelRecursive;
 	}
 }
-?>

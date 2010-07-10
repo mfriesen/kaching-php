@@ -26,7 +26,7 @@ class OrderstatsController extends AdminController
 	var $name = 'Orderstat';
 	var $viewPath = 'order';
 	var $components = array('Auth', 'Kaching.ControllerUtil');
-	var $helpers = array('Html', 'Javascript', 'Date');
+	var $helpers = array('Html', 'Javascript', 'Kaching.Date');
 	var $uses = array('Kaching.Ordersearch', 'Kaching.Order', 'Kaching.Product', 'Kaching.Store');
 	
 	var $paginate = array('Order' => array('limit' => 10, 'order' => array('Order.inserted_date' => 'asc')));

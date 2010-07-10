@@ -68,7 +68,7 @@ class UsersController extends AdminController {
 				
 				if ($this->Auth->login($cookie)) {
 					// Clear auth message, just in case we use it.
-					$this->Session->del('Message.auth');
+					$this->Session->delete('Message.auth');
 					$this->redirect($this->Auth->redirect());
 				}
 			}
@@ -126,7 +126,7 @@ class UsersController extends AdminController {
 	
 	function logout() {
 		
-		$cookie = $this->Cookie->del('Auth.User');
+		$cookie = $this->Cookie->delete('Auth.User');
         $this->Session->setFlash('Logout');
 	    $this->redirect($this->Auth->logout());
     }
@@ -185,7 +185,7 @@ class UsersController extends AdminController {
 	function delete($id=null)
 	{
 		if ($id != null && is_numeric($id)) {
-			$this->User->del($id);
+			$this->User->delete($id);
 		}
 		
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'users', 'action' => "search"));

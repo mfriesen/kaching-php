@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Order Search"; ?>
+<?php $this->set("title_for_layout", "Kaching: Order Search") ?>
 
 <script type="text/javascript">
 	$(document).ready(function()

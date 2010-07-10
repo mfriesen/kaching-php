@@ -1,34 +1,31 @@
 <?php
-/* SVN FILE: $Id: component.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.controller
  * @since         CakePHP(tm) v TBD
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Handler for Controller::$components
  *
  * @package       cake
  * @subpackage    cake.cake.libs.controller
- * @link          http://book.cakephp.org/view/62/Components
+ * @link          http://book.cakephp.org/view/993/Components
  */
 class Component extends Object {
+
 /**
  * Contains various controller variable information (plugin, name, base).
  *
@@ -36,6 +33,7 @@ class Component extends Object {
  * @access private
  */
 	var $__controllerVars = array('plugin' => null, 'name' => null, 'base' => null);
+
 /**
  * List of loaded components.
  *
@@ -43,6 +41,7 @@ class Component extends Object {
  * @access protected
  */
 	var $_loaded = array();
+
 /**
  * List of components attached directly to the controller, which callbacks
  * should be executed on.
@@ -51,13 +50,15 @@ class Component extends Object {
  * @access protected
  */
 	var $_primary = array();
+
 /**
  * Settings for loaded components.
  *
  * @var array
  * @access private
- **/
+ */
 	var $__settings = array();
+
 /**
  * Used to initialize the components for current controller.
  *
@@ -76,13 +77,14 @@ class Component extends Object {
 
 		$this->_loadComponents($controller);
 	}
+
 /**
  * Called before the Controller::beforeFilter().
  *
  * @param object $controller Controller with components to initialize
  * @return void
  * @access public
- * @link http://book.cakephp.org/view/65/MVC-Class-Access-Within-Components
+ * @link http://book.cakephp.org/view/998/MVC-Class-Access-Within-Components
  */
 	function initialize(&$controller) {
 		foreach (array_keys($this->_loaded) as $name) {
@@ -97,22 +99,20 @@ class Component extends Object {
 			}
 		}
 	}
+
 /**
  * Called after the Controller::beforeFilter() and before the controller action
  *
  * @param object $controller Controller with components to startup
  * @return void
  * @access public
- * @link http://book.cakephp.org/view/65/MVC-Class-Access-Within-Components
+ * @link http://book.cakephp.org/view/998/MVC-Class-Access-Within-Components
+ * @deprecated See Component::triggerCallback()
  */
 	function startup(&$controller) {
-		foreach ($this->_primary as $name) {
-			$component =& $this->_loaded[$name];
-			if ($component->enabled === true && method_exists($component, 'startup')) {
-				$component->startup($controller);
-			}
-		}
+		$this->triggerCallback('startup', $controller);
 	}
+
 /**
  * Called after the Controller::beforeRender(), after the view class is loaded, and before the
  * Controller::render()
@@ -120,15 +120,12 @@ class Component extends Object {
  * @param object $controller Controller with components to beforeRender
  * @return void
  * @access public
+ * @deprecated See Component::triggerCallback()
  */
 	function beforeRender(&$controller) {
-		foreach ($this->_primary as $name) {
-			$component =& $this->_loaded[$name];
-			if ($component->enabled === true && method_exists($component,'beforeRender')) {
-				$component->beforeRender($controller);
-			}
-		}
+		$this->triggerCallback('beforeRender', $controller);
 	}
+
 /**
  * Called before Controller::redirect().
  *
@@ -152,21 +149,45 @@ class Component extends Object {
 		}
 		return $response;
 	}
+
 /**
  * Called after Controller::render() and before the output is printed to the browser.
  *
  * @param object $controller Controller with components to shutdown
  * @return void
  * @access public
+ * @deprecated See Component::triggerCallback()
  */
 	function shutdown(&$controller) {
+		$this->triggerCallback('shutdown', $controller);
+	}
+
+/**
+ * Trigger a callback on all primary components.  Will fire $callback on all components
+ * that have such a method.  You can implement and fire custom callbacks in addition to the
+ * standard ones.
+ *
+ * example use, from inside a controller:
+ *
+ * `$this->Component->triggerCallback('beforeFilter', $this);`
+ *
+ * will trigger the beforeFilter callback on all components that have implemented one. You
+ * can trigger any method in this fashion.
+ *
+ * @param Controller $controller Controller instance
+ * @param string $callback Callback to trigger.
+ * @return void
+ * @access public
+ */
+	function triggerCallback($callback, &$controller) {
 		foreach ($this->_primary as $name) {
 			$component =& $this->_loaded[$name];
-			if (method_exists($component,'shutdown') && $component->enabled === true) {
-				$component->shutdown($controller);
+			if (method_exists($component, $callback) && $component->enabled === true) {
+				$component->{$callback}($controller);
 			}
 		}
 	}
+
 /**
  * Loads components used by this component.
  *
@@ -178,20 +199,9 @@ class Component extends Object {
 	function _loadComponents(&$object, $parent = null) {
 		$base = $this->__controllerVars['base'];
 		$normal = Set::normalize($object->components);
-		if ($parent == null) {
-			$normal = Set::merge(array('Session' => null), $normal);
-		}
 		foreach ((array)$normal as $component => $config) {
-			$plugin = null;
-
-			if (isset($this->__controllerVars['plugin'])) {
-				$plugin = $this->__controllerVars['plugin'] . '.';
-			}
-
-			if (strpos($component, '.') !== false) {
-				list($plugin, $component) = explode('.', $component);
-				$plugin = $plugin . '.';
-			}
+			$plugin = isset($this->__controllerVars['plugin']) ? $this->__controllerVars['plugin'] . '.' : null;
+			list($plugin, $component) = pluginSplit($component, true, $plugin);
 			$componentCn = $component . 'Component';
 
 			if (!class_exists($componentCn)) {
@@ -251,5 +261,3 @@ class Component extends Object {
 		}
 	}
 }
-
-?>

@@ -43,7 +43,7 @@ class CategoriesController extends AdminController {
 	}
 	
 	function delete($id) {
-		$this->Category->del($id);			
+		$this->Category->delete($id);			
 	}
 	
 	function edit($id=null) {

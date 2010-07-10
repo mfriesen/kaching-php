@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching Login"; ?>
+<?php $this->set("title_for_layout", "Kaching Login") ?>
 
 <div class="tab-pane padding10">
 

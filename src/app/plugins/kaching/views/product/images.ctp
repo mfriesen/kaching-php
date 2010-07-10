@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Product Images Maintenance"; ?>
+<?php $this->set("title_for_layout", "Kaching: Product Images Maintenance") ?>
 
 <?php if (isset($this->data['Product']['id'])) { ?>
 

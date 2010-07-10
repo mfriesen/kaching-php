@@ -86,7 +86,7 @@ class ShippingaliasesController extends AdminController {
 	function delete($shippingzone_id, $id) {
 		
 		if (is_numeric($id)) {
-			$this->Shippingalias->del($id);
+			$this->Shippingalias->delete($id);
 		}
 		
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'shippingzones', 'action' => "index/$shippingzone_id"));

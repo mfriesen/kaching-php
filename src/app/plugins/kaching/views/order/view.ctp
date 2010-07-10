@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching: Order"; ?>
+<?php $this->set("title_for_layout", "Kaching: Order") ?>
 
 <?php $statusMessages = $orderUtil->getOrderStatusMessages();?>
 <?php $statusColours = $orderUtil->getOrderStatusColours();?>

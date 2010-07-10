@@ -13,5 +13,10 @@
     
     <?php if (strlen($id) > 0) { ?>
 	    <li><a <?php if ($tab == '1') { echo "class='current'";} ?> href="/kaching/stores/shipping/<?php echo $id?>">Shipping Zones</a></li>
+	<?php } ?>
+	
+    <?php if (strlen($id) > 0) { ?>
+	    <li><a <?php if ($tab == '2') { echo "class='current'";} ?> href="/kaching/stores/holidays/<?php echo $id?>">Holidays</a></li>
 	<?php } ?> 
+	 
 </ul>

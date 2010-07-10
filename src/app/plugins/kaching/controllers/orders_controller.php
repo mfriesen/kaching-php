@@ -27,7 +27,7 @@ class OrdersController extends AdminController {
 	var $viewPath = "order";
 	var $components = array('Auth', 'Kaching.ControllerUtil', 'Kaching.Paypal', 'Kaching.ProductsUtil');
 	var $uses = array('Kaching.Order', 'Kaching.Product', 'Kaching.ProductStore', 'Kaching.Store');
-	var $helpers = array('Ajax', 'Html', 'Javascript', 'Date', 'Kaching.OrderUtil', 'Kaching.Cart');
+	var $helpers = array('Ajax', 'Html', 'Javascript', 'Kaching.Date', 'Kaching.OrderUtil', 'Kaching.Cart');
 	
 	function index() {
 		

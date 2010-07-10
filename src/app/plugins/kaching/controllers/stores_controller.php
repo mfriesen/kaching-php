@@ -24,7 +24,7 @@ class StoresController extends AdminController {
 	var $name = 'Store';
 	var $viewPath = "store";
 	var $components = array('Auth', 'RequestHandler', 'Kaching.ControllerUtil');	
-	var $helpers = array('Html','Javascript', 'Ajax');
+	var $helpers = array('Html','Javascript', 'Ajax', 'Kaching.Date');
 	var $uses = array('Kaching.Store', 'Kaching.Shippingzone', 'Kaching.Storesmtp');
 	var $paginate = array('Store' => array('limit' => 20, 'order' => array('number' => 'asc')));	
 	
@@ -95,7 +95,7 @@ class StoresController extends AdminController {
 	function delete($id=null) {
 		
 		if ($id != null && is_numeric($id)) {
-			$this->Store->del($id);
+			$this->Store->delete($id);
 		}
 		
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'stores', 'action' => "index"));
@@ -132,5 +132,30 @@ class StoresController extends AdminController {
 		
 		$this->redirect(array('plugin' => 'kaching', 'controller' => 'stores', 'action' => "shipping", $id));
 	}	
+	
+	function holidays($id) {
+		$this->Store->recursive = 1;
+		$this->data = $this->Store->findById($id);
+	}
+	
+	function addholiday($store_id) {
+
+		if (!empty($this->data)) {
+
+			$this->data['StoreHoliday']['store_id'] = $store_id;
+			$this->Store->StoreHoliday->save($this->data);
+		}
+		
+		$this->redirect(array('plugin' => 'kaching', 'controller' => 'stores', 'action' => "holidays/$store_id"));
+	}
+	
+	function deleteholiday($store_id, $holiday_id) {
+		
+		if ($store_id != null && is_numeric($store_id) && $holiday_id != null && is_numeric($holiday_id)) {
+			$this->Store->StoreHoliday->delete($holiday_id);
+		}
+
+		$this->redirect(array('plugin' => 'kaching', 'controller' => 'stores', 'action' => "holidays/$store_id"));
+	}
 }
 ?>

@@ -26,7 +26,7 @@ class ProductsearchesController extends AdminController {
 	var $name = 'Productsearch';
 	var $viewPath = 'product';
 	var $components = array('Auth', 'RequestHandler', 'Kaching.ControllerUtil');
-	var $helpers = array('Html', 'Javascript', 'Date', 'Kaching.Cart');
+	var $helpers = array('Html', 'Javascript', 'Kaching.Date', 'Kaching.Cart');
 	var $uses = array('Kaching.Productsearch', 'Kaching.Product', 'Kaching.Category', 'Kaching.Store');
 	
 	var $paginate = array('Product' => array('limit' => 10, 'order' => array('number' => 'asc')));

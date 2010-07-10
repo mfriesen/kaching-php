@@ -1,4 +1,4 @@
-<?php $this->pageTitle = "Kaching Change Password"; ?>
+<?php $this->set("title_for_layout", "Kaching Change Password") ?>
 
 <?php echo $form->create('User', array('action' => 'changepassword', 'class'=>'inline'));?>
 
