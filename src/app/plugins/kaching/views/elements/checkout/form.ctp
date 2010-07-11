@@ -2,7 +2,7 @@
 <?php $store_id = $cart->store_id($this->data) ?>
 
 <!-- Store Holidays -->
-<?php $holdays = $this->requestAction("/kaching/helpers/get_holidays/$store_id") ?>
+<?php $holidays = $this->requestAction("/kaching/helpers/get_holidays/$store_id") ?>
 
 <?php $countries = $this->requestAction("/kaching/helpers/get_countries") ?>
 <?php
